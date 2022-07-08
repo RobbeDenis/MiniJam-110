@@ -40,6 +40,8 @@ public class FPVMovement : MonoBehaviour
         m_HorizontalMovement = Input.GetAxisRaw("Horizontal");
         m_VerticalMovement = Input.GetAxisRaw("Vertical");
 
+        Debug.Log(m_VerticalMovement);
+
         m_MoveDirection = m_Orientation.forward * m_VerticalMovement + m_Orientation.right * m_HorizontalMovement;
     }
 
