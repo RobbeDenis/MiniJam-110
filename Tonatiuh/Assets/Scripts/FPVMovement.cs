@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class FPVMovement : MonoBehaviour
 {
@@ -22,14 +23,37 @@ public class FPVMovement : MonoBehaviour
     [SerializeField] private float m_AirMultiplier = 0.1f; 
 
     private Vector3 m_MoveDirection;
+    private Vector3 m_InputDirection;
     private Vector3 m_SlopeMoveDirection;
     private Rigidbody m_RigidBody;
 
-    private float m_HorizontalMovement;
-    private float m_VerticalMovement;
-
     private bool m_IsGrounded;
     private RaycastHit m_SlopeHit;
+
+    private PlayerInputActions m_PlayerControls;
+    private InputAction m_IMove;
+    private InputAction m_IJump;
+
+    private void Awake()
+    {
+        m_PlayerControls = new PlayerInputActions();
+    }
+
+    private void OnEnable()
+    {
+        m_IMove = m_PlayerControls.Player.Move;
+        m_IMove.Enable();
+
+        m_IJump = m_PlayerControls.Player.Jump;
+        m_IJump.Enable();
+        m_IJump.performed += Jump;
+    }
+
+    private void OnDisable()
+    {
+        m_IMove.Disable();
+        m_IJump.Disable();
+    }
 
     private void Start()
     {
@@ -53,16 +77,8 @@ public class FPVMovement : MonoBehaviour
     private void HandleInput()
     {
         // Move
-        m_HorizontalMovement = Input.GetAxisRaw("Horizontal");
-        m_VerticalMovement = Input.GetAxisRaw("Vertical");
-
-        m_MoveDirection = m_Orientation.forward * m_VerticalMovement + m_Orientation.right * m_HorizontalMovement;
-
-        // Jump
-        if(Input.GetKeyDown(KeyCode.Space) && m_IsGrounded)
-        {
-            Jump();
-        }
+        m_InputDirection = m_IMove.ReadValue<Vector2>();
+        m_MoveDirection = m_Orientation.forward * m_InputDirection.y + m_Orientation.right * m_InputDirection.x;
     }
 
     private void HandleDrag()
@@ -100,9 +116,10 @@ public class FPVMovement : MonoBehaviour
         m_SlopeMoveDirection = Vector3.ProjectOnPlane(m_MoveDirection, m_SlopeHit.normal);
     }
 
-    private void Jump()
+    private void Jump(InputAction.CallbackContext context)
     {
-        m_RigidBody.AddForce(transform.up * m_JumpForce, ForceMode.Impulse);
+        if(m_IsGrounded)
+            m_RigidBody.AddForce(transform.up * m_JumpForce, ForceMode.Impulse);
     }
 
     private bool IsOnSlope()
