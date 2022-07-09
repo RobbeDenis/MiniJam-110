@@ -7,8 +7,10 @@ using UnityEngine.InputSystem;
 public class ShieldControl : MonoBehaviour
 {
     [Header("References")]
+    [SerializeField] private Shield m_Shield;
     [SerializeField] private Transform m_ShieldSocket;
     [SerializeField] private Transform m_ShieldModel;
+    [SerializeField] private Transform m_CameraTransform;
 
     private float m_VerticalOffset = 5f;
 
@@ -29,7 +31,7 @@ public class ShieldControl : MonoBehaviour
 
         m_IRecalShield = m_PlayerControls.Player.ShieldRecal;
         m_IRecalShield.Enable();
-        m_IRecalShield.performed += Recal;
+        m_IRecalShield.performed += Recall;
     }
 
     private void OnDisable()
@@ -40,13 +42,18 @@ public class ShieldControl : MonoBehaviour
 
     private void Throw(InputAction.CallbackContext context)
     {
-        Debug.Log("Throw");
         m_ShieldModel.localPosition = new Vector3(0f, -m_VerticalOffset, 0f);
+        m_Shield.transform.position = m_ShieldSocket.position;
+
+        Vector3 direction = m_CameraTransform.forward;
+
+        m_Shield.Throw(direction);
     }
 
-    private void Recal(InputAction.CallbackContext context)
+    private void Recall(InputAction.CallbackContext context)
     {
-        Debug.Log("Recal");
         m_ShieldModel.localPosition = new Vector3(0f, 0f, 0f);
+
+        m_Shield.Recall(m_ShieldSocket);
     }
 }

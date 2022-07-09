@@ -252,8 +252,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d48e7768f61fbf40bef454ec1574832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Shield: {fileID: 3850805923034230963}
   m_ShieldSocket: {fileID: 6681347567001446734}
   m_ShieldModel: {fileID: 8628687850627930264}
+  m_CameraTransform: {fileID: 1618765761855824713}
 --- !u!114 &1618765762111984278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -665,6 +667,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5365940595342854257, guid: 46058341bcafe96408e31f5ba79eec0f, type: 3}
   m_PrefabInstance: {fileID: 53759881955042360}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5388936120108756043 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5365940595342854259, guid: 46058341bcafe96408e31f5ba79eec0f, type: 3}
+  m_PrefabInstance: {fileID: 53759881955042360}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3850805923034230963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5388936120108756043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb1b3ddd3ad7b774186a01bb96960db4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2202670689069131584
 PrefabInstance:
   m_ObjectHideFlags: 0
