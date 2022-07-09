@@ -53,6 +53,24 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShieldThrow"",
+                    ""type"": ""Button"",
+                    ""id"": ""28083a0d-0bfa-45db-aae2-6ca8a41c93c0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShieldRecal"",
+                    ""type"": ""Button"",
+                    ""id"": ""e0418217-4962-4d63-b4b3-c69ae53c1c4e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -229,6 +247,28 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4c59e4bb-ecdd-4e15-a604-0f2d74c957c5"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""ShieldThrow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""40eeae32-92aa-429d-ad85-69e9ec48d697"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""ShieldRecal"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -819,6 +859,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
+        m_Player_ShieldThrow = m_Player.FindAction("ShieldThrow", throwIfNotFound: true);
+        m_Player_ShieldRecal = m_Player.FindAction("ShieldRecal", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -893,6 +935,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Jump;
+    private readonly InputAction m_Player_ShieldThrow;
+    private readonly InputAction m_Player_ShieldRecal;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -900,6 +944,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
+        public InputAction @ShieldThrow => m_Wrapper.m_Player_ShieldThrow;
+        public InputAction @ShieldRecal => m_Wrapper.m_Player_ShieldRecal;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -918,6 +964,12 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Jump.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
                 @Jump.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnJump;
+                @ShieldThrow.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShieldThrow;
+                @ShieldThrow.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShieldThrow;
+                @ShieldThrow.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShieldThrow;
+                @ShieldRecal.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShieldRecal;
+                @ShieldRecal.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShieldRecal;
+                @ShieldRecal.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShieldRecal;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -931,6 +983,12 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Jump.started += instance.OnJump;
                 @Jump.performed += instance.OnJump;
                 @Jump.canceled += instance.OnJump;
+                @ShieldThrow.started += instance.OnShieldThrow;
+                @ShieldThrow.performed += instance.OnShieldThrow;
+                @ShieldThrow.canceled += instance.OnShieldThrow;
+                @ShieldRecal.started += instance.OnShieldRecal;
+                @ShieldRecal.performed += instance.OnShieldRecal;
+                @ShieldRecal.canceled += instance.OnShieldRecal;
             }
         }
     }
@@ -1090,6 +1148,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
+        void OnShieldThrow(InputAction.CallbackContext context);
+        void OnShieldRecal(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
