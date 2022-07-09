@@ -19,15 +19,7 @@ public class BasicEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (Vector3.Distance(transform.position, m_PlayerTransform.position) <= m_DistanceToPlayer)
-        //{
-        //    m_NavMeshAgent.isStopped = true;
-        //}
-        //else
-        //{
-        //    m_NavMeshAgent.isStopped = false;
-        //}
-
+        //rotate to face player
         var lookPos = m_PlayerTransform.position - transform.position;
         lookPos.y = 0;
         var rotation = Quaternion.LookRotation(lookPos);
