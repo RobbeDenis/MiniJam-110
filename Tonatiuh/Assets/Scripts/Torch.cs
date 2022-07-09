@@ -20,6 +20,9 @@ public class Torch : MonoBehaviour
     Transform m_lightSphere;
     Light m_Light;
 
+    ParticleSystem m_fireParticle;
+    float m_fireScale = 1.5f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +36,8 @@ public class Torch : MonoBehaviour
         m_Light.range = m_startRadius;
         m_Light.enabled = false;
 
-        var emission = GetComponentInChildren<ParticleSystem>().emission;
+        m_fireParticle = GetComponentInChildren<ParticleSystem>();
+        var emission = m_fireParticle.emission;
         emission.enabled = false;
     }
 
@@ -51,6 +55,9 @@ public class Torch : MonoBehaviour
 
         m_Light.range = m_CurrentRadius;
 
+        float scale = m_CurrentRadius / m_endRadius * m_fireScale;
+        m_fireParticle.transform.localScale = new Vector3(scale, scale, scale);
+
         if (m_test)
         {
             if (!m_doOnce)
@@ -62,11 +69,7 @@ public class Torch : MonoBehaviour
         else
             m_doOnce = false;
     }
-    //void OnTriggerEnter(Collider other)
-    //{
-    //    if(other.tag == "Fairy")
-    //        transform.position = new Vector3(500, 500, 500);
-    //}
+
     public void SetTorchActive()
     {
         m_lightSphere.localScale = new Vector3(m_startRadius, m_startRadius, m_startRadius);
@@ -75,7 +78,7 @@ public class Torch : MonoBehaviour
         m_Light.enabled = true;
 
         var emission = GetComponentInChildren<ParticleSystem>().emission;
-        emission.enabled = false;
+        emission.enabled = true;
     }
     public void AddLight(float lightAmount)
     {
@@ -83,6 +86,17 @@ public class Torch : MonoBehaviour
         if (m_CurrentRadius >= m_endRadius)
         {
             m_torchComplete = true;
+            GameManager.Instance.TorchComplete = true;
+
+
+            m_lightSphere.localScale = new Vector3(0, 0, 0);
+
+            m_isTorchActive = false;
+            m_Light.enabled = false;
+
+            var emission = GetComponentInChildren<ParticleSystem>().emission;
+            emission.enabled = false;
+
         }
     }
     public void RemoveLight(float lightAmount)
@@ -92,9 +106,5 @@ public class Torch : MonoBehaviour
         {
             m_CurrentRadius = 0;
         }
-    }
-    public bool GetIsComplete()
-    {
-        return m_torchComplete;
     }
 }
