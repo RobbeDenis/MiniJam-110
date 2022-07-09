@@ -1,22 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class FPVLook : MonoBehaviour
 {
     [Header("Sensitivity")]
     [SerializeField] private float m_SensX = 2f;
     [SerializeField] private float m_SensY = 2f;
+    private float m_Multiplier = 0.1f;
 
     [Header("References")]
     [SerializeField] private Transform m_CameraHolderTransform;
     [SerializeField] private Transform m_Orientation;
 
-    private float m_MouseInputX;
-    private float m_MouseInputY;
+    private Vector2 m_InputLook;
 
     private float m_Yaw;
     private float m_Pitch;
+
+    private PlayerInputActions m_PlayerControls;
+    private InputAction m_ILook;
+
+    private void OnEnable()
+    {
+        m_PlayerControls = new PlayerInputActions();
+
+        m_ILook = m_PlayerControls.Player.Look;
+        m_ILook.Enable();
+    }
+
+    private void OnDisable()
+    {
+        m_ILook.Disable();
+    }
 
     private void Start()
     {
@@ -34,11 +51,10 @@ public class FPVLook : MonoBehaviour
 
     private void HandleInput()
     {
-        m_MouseInputX = Input.GetAxisRaw("Mouse X");
-        m_MouseInputY = Input.GetAxisRaw("Mouse Y");
+        m_InputLook = m_ILook.ReadValue<Vector2>();
 
-        m_Yaw += m_MouseInputX * m_SensX;
-        m_Pitch -= m_MouseInputY * m_SensY;
+        m_Yaw += m_InputLook.x * m_SensX * m_Multiplier;
+        m_Pitch -= m_InputLook.y * m_SensY * m_Multiplier;
 
         m_Pitch = Mathf.Clamp(m_Pitch, -90f, 90f);
     }
