@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Torch
+  - Fairy
+  - CheckPoint
   - Catch
   layers:
   - Default
