@@ -3016,6 +3016,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2329919552737430047, guid: 4520053b893f2484397c3303d3706a3e, type: 3}
+      propertyPath: m_Center.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2613625268903795836, guid: 4520053b893f2484397c3303d3706a3e, type: 3}
+      propertyPath: m_PlayerMask.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
+    - target: {fileID: 2613625268903795836, guid: 4520053b893f2484397c3303d3706a3e, type: 3}
+      propertyPath: m_ShieldMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 2932446777726065725, guid: 4520053b893f2484397c3303d3706a3e, type: 3}
       propertyPath: m_Name
       value: BasicFPVPlayer_6

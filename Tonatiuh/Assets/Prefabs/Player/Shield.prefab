@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3089309767771559208}
   - component: {fileID: 5365940595342854258}
   - component: {fileID: 7882672613609579047}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shield
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb1b3ddd3ad7b774186a01bb96960db4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Speed: 25
 --- !u!136 &5365940595342854258
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -84,6 +85,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5365940595342854257}
     m_Modifications:
+    - target: {fileID: 7579053154769873459, guid: c4ed543cc23e2f04880f507786c66070, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7579053154788725307, guid: c4ed543cc23e2f04880f507786c66070, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7579053155263545304, guid: c4ed543cc23e2f04880f507786c66070, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -131,6 +140,10 @@ PrefabInstance:
     - target: {fileID: 7579053155263545305, guid: c4ed543cc23e2f04880f507786c66070, type: 3}
       propertyPath: m_Name
       value: TestShield
+      objectReference: {fileID: 0}
+    - target: {fileID: 7579053155263545305, guid: c4ed543cc23e2f04880f507786c66070, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c4ed543cc23e2f04880f507786c66070, type: 3}
