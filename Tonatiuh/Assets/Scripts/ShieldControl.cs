@@ -6,6 +6,9 @@ using UnityEngine.InputSystem;
 
 public class ShieldControl : MonoBehaviour
 {
+    [Header("Aim settings")]
+    [SerializeField] private float m_MaxAimDistance = 100f;
+
     [Header("References")]
     [SerializeField] private Shield m_Shield;
     [SerializeField] private Transform m_ShieldSocket;
@@ -45,7 +48,16 @@ public class ShieldControl : MonoBehaviour
         m_ShieldModel.localPosition = new Vector3(0f, -m_VerticalOffset, 0f);
         m_Shield.transform.position = m_ShieldSocket.position;
 
-        Vector3 direction = m_CameraTransform.forward;
+        Vector3 direction;
+        RaycastHit hit;
+        if(Physics.Raycast(m_CameraTransform.position, m_CameraTransform.forward, out hit, m_MaxAimDistance))
+        {
+            direction = Vector3.Normalize(hit.point - m_ShieldSocket.position);
+        }
+        else
+        {
+            direction = Vector3.Normalize((m_CameraTransform.position + m_CameraTransform.forward * m_MaxAimDistance) - m_ShieldSocket.position);
+        }
 
         m_Shield.Throw(direction);
     }

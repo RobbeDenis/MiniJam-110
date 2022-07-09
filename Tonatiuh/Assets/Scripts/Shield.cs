@@ -5,7 +5,6 @@ using UnityEngine;
 public class Shield : MonoBehaviour
 {
     private Rigidbody m_Rigidbody;
-    MeshCollider col;
 
     private void Awake()
     {
