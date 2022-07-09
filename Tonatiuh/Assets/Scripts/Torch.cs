@@ -17,6 +17,7 @@ public class Torch : MonoBehaviour
 
     private float m_CurrentRadius = 0;
     Transform m_lightSphere;
+    Light m_Light;
 
     // Start is called before the first frame update
     void Start()
@@ -28,8 +29,9 @@ public class Torch : MonoBehaviour
 
         m_lightSphere.localScale = new Vector3(m_startRadius, m_startRadius, m_startRadius);
 
-        var idk = GetComponent<Light>();
-        idk.intensity = 1000;
+
+        m_Light = GetComponentInChildren<Light>();
+        m_Light.range = m_startRadius;
     }
 
     // Update is called once per frame
@@ -40,6 +42,8 @@ public class Torch : MonoBehaviour
         m_CurrentRadius -= Time.deltaTime * m_sizeDecrease;
         if (m_CurrentRadius <= 0)
             m_CurrentRadius = 0;
+
+        m_Light.range = m_CurrentRadius;
 
         if (m_test)
         {
