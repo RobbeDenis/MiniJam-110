@@ -10,11 +10,14 @@ public class FPVMovement : MonoBehaviour
     [SerializeField] private float m_DefaultDrag = 6f;
     [SerializeField] private float m_JumpForce = 6f;
 
+    [Header("Ground detection")]
+    [SerializeField] private float m_GroundDetectionDistance = 0.4f;
+    [SerializeField] private LayerMask m_GroundMask;
+
     [Header("References")]
     [SerializeField] private Transform m_Orientation;
 
     [Header("Air properties")]
-    [SerializeField] private float m_GroundDetectionDistance = 0.02f;
     [SerializeField] private float m_AirDrag = 0.2f;
     [SerializeField] private float m_AirMultiplier = 0.1f; 
 
@@ -66,8 +69,9 @@ public class FPVMovement : MonoBehaviour
 
     private void HandleState()
     {
-        Vector3 offset = new Vector3(0f, 0.01f, 0f);
-        m_IsGrounded = Physics.Raycast(transform.position + offset, Vector3.down, m_GroundDetectionDistance);
+        m_IsGrounded = Physics.CheckSphere(transform.position, m_GroundDetectionDistance, m_GroundMask);
+        Debug.Log(m_IsGrounded);
+        
     }
 
     private void MovePlayer()
