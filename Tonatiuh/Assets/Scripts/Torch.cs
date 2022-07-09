@@ -28,8 +28,8 @@ public class Torch : MonoBehaviour
 
         m_lightSphere.localScale = new Vector3(m_startRadius, m_startRadius, m_startRadius);
 
-        //var idk = GetComponent<point>();
-        //idk.intensity = 1000;
+        var idk = GetComponent<Light>();
+        idk.intensity = 1000;
     }
 
     // Update is called once per frame
