@@ -58,3 +58,7 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
+*.dwlt
+Tonatiuh/Packages/manifest.json
+Tonatiuh/Packages/packages-lock.json
+Tonatiuh/ProjectSettings/ProjectSettings.asset
