@@ -286,6 +286,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2649979785327068788}
   - component: {fileID: -4886300246028557577}
+  - component: {fileID: 6610986802726466624}
   m_Layer: 0
   m_Name: Torch
   m_TagString: Torch
@@ -327,6 +328,20 @@ MonoBehaviour:
   m_endRadius: 20
   m_sizeDecrease: 0.1
   m_test: 0
+--- !u!136 &6610986802726466624
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7011281193273205820}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.4
+  m_Height: 4
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8305617942129766332
 GameObject:
   m_ObjectHideFlags: 0
