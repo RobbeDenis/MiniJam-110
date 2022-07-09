@@ -9,6 +9,7 @@ TagManager:
   - Fairy
   - CheckPoint
   - Catch
+  - Pillar
   layers:
   - Default
   - TransparentFX
