@@ -66,7 +66,7 @@ public class Torch : MonoBehaviour
             m_torchComplete = true;
         }
     }
-    void RemoveLight(float lightAmount)
+    public void RemoveLight(float lightAmount)
     {
         m_CurrentRadius -= lightAmount;
         if (m_CurrentRadius <= 0)

@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class KamikazeEnemy : MonoBehaviour
 {
     [SerializeField] GameObject m_DeathThingy;
+    [SerializeField] float m_RemoveLightAmount = 2f;
 
     public Transform m_TorchTransform;
     private NavMeshAgent m_NavMeshAgent;
@@ -33,8 +34,13 @@ public class KamikazeEnemy : MonoBehaviour
     {
         if (other.CompareTag("Torch"))
         {
+            Torch torchCmpt = other.GetComponentInParent<Torch>();
+            if (torchCmpt)
+                torchCmpt.RemoveLight(m_RemoveLightAmount);
+
             //spawn particle thingy after death
-            Instantiate(m_DeathThingy, transform);
+            Instantiate(m_DeathThingy, transform.position, transform.rotation);
+            Destroy(gameObject);
         }
     }
 }
