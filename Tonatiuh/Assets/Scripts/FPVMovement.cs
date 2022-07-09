@@ -22,12 +22,14 @@ public class FPVMovement : MonoBehaviour
     [SerializeField] private float m_AirMultiplier = 0.1f; 
 
     private Vector3 m_MoveDirection;
+    private Vector3 m_SlopeMoveDirection;
     private Rigidbody m_RigidBody;
 
     private float m_HorizontalMovement;
     private float m_VerticalMovement;
 
     private bool m_IsGrounded;
+    private RaycastHit m_SlopeHit;
 
     private void Start()
     {
@@ -45,6 +47,7 @@ public class FPVMovement : MonoBehaviour
         HandleState();
         HandleInput();
         HandleDrag();
+        HandleSlopes();
     }
 
     private void HandleInput()
@@ -76,15 +79,39 @@ public class FPVMovement : MonoBehaviour
 
     private void MovePlayer()
     {
-        float multiplier = m_IsGrounded ? m_MovementMultiplier : m_MovementMultiplier * m_AirMultiplier;
+        bool isOnSlope = IsOnSlope();
 
-        Vector3 force = multiplier * m_MoveSpeed * m_MoveDirection.normalized;
-        m_RigidBody.AddForce(force, ForceMode.Acceleration);
+        if (m_IsGrounded && !isOnSlope)
+        {
+            m_RigidBody.AddForce(m_MovementMultiplier * m_MoveSpeed * m_MoveDirection.normalized, ForceMode.Acceleration);
+        }
+        else if (m_IsGrounded && isOnSlope)
+        {
+            m_RigidBody.AddForce(m_MovementMultiplier * m_MoveSpeed * m_SlopeMoveDirection.normalized, ForceMode.Acceleration);
+        }
+        else if(!m_IsGrounded)
+        {
+            m_RigidBody.AddForce(m_MovementMultiplier * m_AirMultiplier * m_MoveSpeed * m_MoveDirection.normalized, ForceMode.Acceleration);
+        }
+    }
+
+    private void HandleSlopes()
+    {
+        m_SlopeMoveDirection = Vector3.ProjectOnPlane(m_MoveDirection, m_SlopeHit.normal);
     }
 
     private void Jump()
     {
         m_RigidBody.AddForce(transform.up * m_JumpForce, ForceMode.Impulse);
+    }
+
+    private bool IsOnSlope()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out m_SlopeHit, 0.5f))
+        {
+            return m_SlopeHit.normal != Vector3.up;
+        }
+        else return false;
     }
 }
 
