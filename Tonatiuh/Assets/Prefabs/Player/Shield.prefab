@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5365940595342854257}
   - component: {fileID: 3089309767771559208}
-  - component: {fileID: 5365940595342854258}
   - component: {fileID: 7882672613609579047}
+  - component: {fileID: 2038641100126829970}
   m_Layer: 8
   m_Name: Shield
   m_TagString: Untagged
@@ -58,20 +58,6 @@ MonoBehaviour:
   m_OrbitSpeed: 0.5
   m_OrbitAngle: 4
   m_MaxOrbitTime: 4
---- !u!136 &5365940595342854258
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5365940595342854259}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.7
-  m_Height: 0
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0.2, z: -0.000000059604645}
 --- !u!54 &7882672613609579047
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -88,6 +74,19 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!65 &2038641100126829970
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5365940595342854259}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.1, y: 0.3, z: 1.1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1997188727962971266
 PrefabInstance:
   m_ObjectHideFlags: 0

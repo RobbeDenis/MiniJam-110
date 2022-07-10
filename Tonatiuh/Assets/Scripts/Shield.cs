@@ -189,7 +189,9 @@ public class Shield : MonoBehaviour
             return;
 
         if (other.gameObject.tag.Equals("CheckPoint") ||
-            other.gameObject.tag.Equals("Player"))
+            other.gameObject.tag.Equals("Player") ||
+            other.gameObject.tag.Equals("Torch") ||
+            other.gameObject.tag.Equals("Fairy"))
             return;
 
         if (other.gameObject.tag.Equals("Enemy"))
