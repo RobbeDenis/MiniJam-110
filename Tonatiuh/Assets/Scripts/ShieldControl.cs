@@ -87,4 +87,9 @@ public class ShieldControl : MonoBehaviour
         m_Thrown = false;
         m_ShieldModel.localPosition = new Vector3(0f, 0f, 0f);
     }
+
+    public Transform GetSocket()
+    {
+        return m_ShieldSocket;
+    }
 }
