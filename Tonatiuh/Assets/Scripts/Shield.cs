@@ -17,6 +17,8 @@ public class Shield : MonoBehaviour
     [SerializeField] private float m_ReturnMultiplier = 0.1f;
     [SerializeField] private float m_MinReturnSpeed = 2f;
 
+    [Header("Orbit settings")]
+
     private ShieldControl m_Controller;
 
     private Rigidbody m_Rigidbody;
@@ -167,5 +169,10 @@ public class Shield : MonoBehaviour
         transform.localScale = new Vector3(1f, 1f, 1f);
         m_EnemyPierceAmount = 0;
         m_ShieldLevel = 1;
+    }
+
+    public void GoOrbit(Transform target)
+    {
+
     }
 }
