@@ -1564,12 +1564,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1143863548792084199, guid: b54427612d5fa674ea9715938219a8b9, type: 3}
       propertyPath: m_BullEnemyCount
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1143863548792084199, guid: b54427612d5fa674ea9715938219a8b9, type: 3}
       propertyPath: m_TorchTransform
       value: 
       objectReference: {fileID: 91777426}
+    - target: {fileID: 1143863548792084199, guid: b54427612d5fa674ea9715938219a8b9, type: 3}
+      propertyPath: m_WispEnemyCount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1143863548792084199, guid: b54427612d5fa674ea9715938219a8b9, type: 3}
       propertyPath: m_PlayerCameraTransform
       value: 
