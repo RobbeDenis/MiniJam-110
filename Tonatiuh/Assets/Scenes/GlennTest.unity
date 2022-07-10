@@ -1831,7 +1831,7 @@ PrefabInstance:
     - target: {fileID: 1143863548792084199, guid: b54427612d5fa674ea9715938219a8b9, type: 3}
       propertyPath: m_Waves.Array.data[0]
       value: 
-      objectReference: {fileID: 11400000, guid: f2f2a8aaf6f04fc4ba87a28e70ab402d, type: 2}
+      objectReference: {fileID: 11400000, guid: 0d3a63a0ba7d11f47a2f2f2eae10bfda, type: 2}
     - target: {fileID: 1143863548792084199, guid: b54427612d5fa674ea9715938219a8b9, type: 3}
       propertyPath: m_Waves.Array.data[1]
       value: 
@@ -1907,7 +1907,7 @@ PrefabInstance:
       objectReference: {fileID: 331875412}
     - target: {fileID: 2485315758315762931, guid: 8c3e588276377ac49b29a18836a2328c, type: 3}
       propertyPath: m_VersionIndex
-      value: 308
+      value: 314
       objectReference: {fileID: 0}
     - target: {fileID: 2485315758315762933, guid: 8c3e588276377ac49b29a18836a2328c, type: 3}
       propertyPath: m_Mesh

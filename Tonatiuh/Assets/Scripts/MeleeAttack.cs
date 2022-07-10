@@ -12,7 +12,7 @@ public class MeleeAttack : MonoBehaviour
     public Rigidbody m_playerRigidBody { get; private set; } = null;
 
     public bool m_PlayerInTrigger { get; private set; } = false;
-    public bool m_Disable = false;
+    public bool m_Disable { get; set; } = false;
     private bool m_CanAttack = true;
 
     // Start is called before the first frame update

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] public float m_Damage = 1f;
+    [SerializeField] public float m_Damage = 15f;
     [SerializeField] float m_Speed = 2f;
 
     private Rigidbody m_RigidBody;
@@ -27,5 +27,7 @@ public class Bullet : MonoBehaviour
     {
         if (!other.CompareTag("Enemy"))
             Destroy(gameObject);
+        else if (other.CompareTag("Player"))
+            other.GetComponent<PlayerHP>().TakeDamage(m_Damage);
     }
 }
