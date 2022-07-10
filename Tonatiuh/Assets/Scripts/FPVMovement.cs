@@ -28,6 +28,11 @@ public class FPVMovement : MonoBehaviour
     [SerializeField] private float m_RetainVelocity = 0.5f;
     [SerializeField] private float m_MaxDashCooldwon = 2.5f;
 
+    [Header("Warp effect")]
+    [SerializeField] private float m_WarpAmount = 12f;
+    [SerializeField] private float m_WarpTime = 0.05f;
+    [SerializeField] private float m_UnWarpTime = 0.2f;
+
     private Vector3 m_MoveDirection;
     private Vector3 m_InputDirection;
     private Vector3 m_SlopeMoveDirection;
@@ -155,10 +160,19 @@ public class FPVMovement : MonoBehaviour
         if(Mathf.Abs(m_InputDirection.x) < Mathf.Epsilon &&
             Mathf.Abs(m_InputDirection.y) < Mathf.Epsilon)
         {
+            //if (m_InputDirection.y > 0)
+            //    CameraManager.Instance.FovWarp(-m_WarpAmount, m_WarpTime, m_UnWarpTime);
+            //else
+            //    CameraManager.Instance.FovWarp(m_WarpAmount, m_WarpTime, m_UnWarpTime);
+
+            CameraManager.Instance.FovWarp(-m_WarpAmount, m_WarpTime, m_UnWarpTime);
+
             m_RigidBody.AddForce(m_Orientation.forward * power, ForceMode.Impulse);
         }
         else
         {
+            CameraManager.Instance.FovWarp(m_WarpAmount, m_WarpTime, m_UnWarpTime);
+
             Vector3 inputDirection = new Vector3(m_InputDirection.x, 0f, m_InputDirection.y);
             Vector3 direction = Quaternion.Euler(0, m_Orientation.eulerAngles.y, 0) * inputDirection;
             direction.Normalize();

@@ -3877,6 +3877,9 @@ MonoBehaviour:
   m_AirPower: 15
   m_RetainVelocity: 0.5
   m_MaxDashCooldwon: 2.5
+  m_WarpAmount: 9
+  m_WarpTime: 0.08
+  m_UnWarpTime: 0.2
 --- !u!1 &165706922822098464
 GameObject:
   m_ObjectHideFlags: 0
@@ -3887,6 +3890,7 @@ GameObject:
   m_Component:
   - component: {fileID: 165706922822098466}
   - component: {fileID: 165706922822098465}
+  - component: {fileID: 165706922822098467}
   m_Layer: 0
   m_Name: CameraHolder
   m_TagString: Untagged
@@ -3924,6 +3928,19 @@ Transform:
   m_Father: {fileID: 162776264502084526}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &165706922822098467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 165706922822098464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59ff52f1bbd0188428cc456c9daa8512, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Camera: {fileID: 165706921707606389}
 --- !u!1001 &768640135380605483
 PrefabInstance:
   m_ObjectHideFlags: 0
