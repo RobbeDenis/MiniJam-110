@@ -48,7 +48,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Speed: 20
-  m_PierceIncrease: 2
+  m_MaxTravelTime: 1
+  m_PierceIncrease: 1
+  m_MaxShieldLevel: 4
+  m_ScaleIncrease: 0.65
   m_ReturnMultiplier: 0.1
   m_MinReturnSpeed: 2
 --- !u!136 &5365940595342854258

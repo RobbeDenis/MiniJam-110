@@ -10,6 +10,8 @@ public class Shield : MonoBehaviour
 
     [Header("Pillar hit")]
     [SerializeField] private int m_PierceIncrease = 2;
+    [SerializeField] private int m_MaxShieldLevel = 3;
+    [SerializeField] private float m_ScaleIncrease = 0.5f;
 
     [Header("Recall settings")]
     [SerializeField] private float m_ReturnMultiplier = 0.1f;
@@ -21,6 +23,7 @@ public class Shield : MonoBehaviour
     private Transform m_RecallTarget;
     private float m_TravelTime;
     private int m_EnemyPierceAmount = 0;
+    private int m_ShieldLevel = 1;
     private bool m_Recalling = false;
     private bool m_Active = false;
 
@@ -110,6 +113,13 @@ public class Shield : MonoBehaviour
             m_Rigidbody.velocity = new Vector3(0f, 0f, 0f);
             m_Rigidbody.AddForce(direction * m_Speed, ForceMode.Impulse);
 
+            if(m_ShieldLevel < m_MaxShieldLevel)
+            {
+                float newScale = transform.localScale.x + m_ScaleIncrease;
+                transform.localScale = new Vector3(newScale, newScale, newScale);
+                m_ShieldLevel++;
+            }
+
             m_TravelTime = 0f;
         }
         else if (m_Recalling && other.gameObject.tag == "Catch")
@@ -154,6 +164,8 @@ public class Shield : MonoBehaviour
         float y = -10f;
         m_Rigidbody.velocity = new Vector3(0f, 0f, 0f);
         transform.position = new Vector3(0f, y, 0f);
+        transform.localScale = new Vector3(1f, 1f, 1f);
         m_EnemyPierceAmount = 0;
+        m_ShieldLevel = 1;
     }
 }
