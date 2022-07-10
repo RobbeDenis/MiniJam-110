@@ -10,6 +10,7 @@ TagManager:
   - CheckPoint
   - Catch
   - Pillar
+  - Level
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Ground
   - FPV
   - Shield
-  - 
+  - Enemy
   - 
   - 
   - 

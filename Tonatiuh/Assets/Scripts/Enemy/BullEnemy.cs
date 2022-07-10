@@ -5,12 +5,15 @@ using UnityEngine.AI;
 
 public class BullEnemy : MonoBehaviour
 {
+    [Header("Movement settings")]
     [SerializeField] float m_FacingSpeed = 3f;
 
+    [Header("Charge attack")]
     [SerializeField] float m_ChargeForce = 25f;
     [SerializeField] float m_PlayerImpactForceH = 20f;
     [SerializeField] float m_PlayerImpactForceV = 6f;
 
+    [Header("Cooldwon settings")]
     [SerializeField] float m_DelayBeforeCharge = 1f;
     [SerializeField] float m_HitCooldown = 1f;
     [SerializeField] float m_ChargeCooldown = 5f;
@@ -28,6 +31,7 @@ public class BullEnemy : MonoBehaviour
     private bool m_ChargeMode = false;
     private bool m_CanCharge = true;
     private bool m_Stunned = false;
+    private bool m_AttemptingToCharge = false;
 
     // Start is called before the first frame update
     void Start()
@@ -68,8 +72,14 @@ public class BullEnemy : MonoBehaviour
 
         if (!m_PlayerInTrigger)
         {
-            //m_NavMeshAgent.
+            m_NavMeshAgent.isStopped = false;
             m_NavMeshAgent.destination = m_PlayerTransform.position;
+        }
+        else if (m_PlayerInTrigger && !m_AttemptingToCharge)
+        {
+            m_AttemptingToCharge = true;
+            m_NavMeshAgent.isStopped = true;
+            Invoke("AttamptChargeAttack", m_DelayBeforeCharge);
         }
     }
 
@@ -78,7 +88,7 @@ public class BullEnemy : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             m_PlayerInTrigger = true;
-            Invoke("AttamptChargeAttack", m_DelayBeforeCharge);
+            //Invoke("AttamptChargeAttack", m_DelayBeforeCharge);
         }
     }
 
@@ -92,13 +102,14 @@ public class BullEnemy : MonoBehaviour
 
     private void AttamptChargeAttack()
     {
-        //if player is still in trigger after the delay start the charge attack
+        //if player is still in trigger after the delay, start the actual charge attack
         if (m_PlayerInTrigger && m_CanCharge)
         {
             m_ChargeMode = true;
             //m_NavMeshAgent.isStopped = true;
             m_NavMeshAgent.enabled = false;
             m_CanCharge = false;
+
             // makes melee collider just a collider by disabling its melee attack logic
             m_MeleeAttackCollider.m_Disable = true;
 
@@ -107,7 +118,7 @@ public class BullEnemy : MonoBehaviour
             m_RigidBody.AddForce(transform.forward * m_ChargeForce, ForceMode.Impulse);
         }
 
-
+        m_AttemptingToCharge = false;
     }
 
     void StopCharging()
@@ -129,4 +140,5 @@ public class BullEnemy : MonoBehaviour
     {
         m_CanCharge = true;
     }
+
 }

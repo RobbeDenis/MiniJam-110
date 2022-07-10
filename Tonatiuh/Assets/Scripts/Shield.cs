@@ -191,7 +191,8 @@ public class Shield : MonoBehaviour
         if (other.gameObject.tag.Equals("CheckPoint") ||
             other.gameObject.tag.Equals("Player") ||
             other.gameObject.tag.Equals("Torch") ||
-            other.gameObject.tag.Equals("Fairy"))
+            other.gameObject.tag.Equals("Fairy") ||
+            other.gameObject.tag.Equals("Untagged"))
             return;
 
         if (other.gameObject.tag.Equals("Enemy"))
@@ -200,7 +201,8 @@ public class Shield : MonoBehaviour
 
             if (m_EnemyPierceAmount <= 0)
             {
-                Recall(m_Controller.GetSocket());
+                if(!m_Orbitting)
+                    Recall(m_Controller.GetSocket());
             }
         }
         else if(!m_Orbitting && !m_Recalling && other.gameObject.tag.Equals("Pillar"))
@@ -216,11 +218,12 @@ public class Shield : MonoBehaviour
             Vector3 direction = Vector3.Reflect(transform.forward, pillarNorm);
 
             transform.forward = direction;
+            direction.y = 0f;
 
             m_Rigidbody.velocity = new Vector3(0f, 0f, 0f);
             m_Rigidbody.AddForce(direction * m_Speed, ForceMode.Impulse);
 
-            if(m_ShieldLevel < m_MaxShieldLevel)
+            if (m_ShieldLevel < m_MaxShieldLevel)
             {
                 float newScale = transform.localScale.x + m_ScaleIncrease;
                 transform.localScale = new Vector3(newScale, newScale, newScale);
