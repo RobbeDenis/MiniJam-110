@@ -9,11 +9,13 @@ public class BasicEnemy : MonoBehaviour
 
     public Transform m_PlayerTransform { get; set; }
     private NavMeshAgent m_NavMeshAgent;
+    //private HP m_HP;
 
     // Start is called before the first frame update
     void Start()
     {
         m_NavMeshAgent = GetComponent<NavMeshAgent>();
+        //m_HP = GetComponent<HP>();
     }
 
     // Update is called once per frame
@@ -27,20 +29,4 @@ public class BasicEnemy : MonoBehaviour
 
         m_NavMeshAgent.destination = m_PlayerTransform.position;
     }
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.CompareTag("Player"))
-    //    {
-    //        m_NavMeshAgent.isStopped = true;
-    //    }
-    //}
-
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (other.CompareTag("Player"))
-    //    {
-    //        
-    //    }
-    //}
 }

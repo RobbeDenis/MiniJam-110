@@ -19,6 +19,9 @@ public class BullEnemy : MonoBehaviour
     [SerializeField] float m_ChargeCooldown = 5f;
     [SerializeField] float m_ChargingDuration = 3f;
 
+    [Space()]
+    [SerializeField] GameObject m_DeathExplosion;
+
     public Transform m_PlayerTransform { get; set; }
     private Rigidbody m_RigidBody;
     private MeleeAttack m_MeleeAttackCollider;
@@ -30,6 +33,7 @@ public class BullEnemy : MonoBehaviour
     private bool m_CanCharge = true;
     private bool m_Stunned = false;
     private bool m_AttemptingToCharge = false;
+    private HP m_HP;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +41,7 @@ public class BullEnemy : MonoBehaviour
         m_NavMeshAgent = GetComponent<NavMeshAgent>();
         m_RigidBody = GetComponent<Rigidbody>();
         m_MeleeAttackCollider = GetComponentInChildren<MeleeAttack>();
+        m_HP = GetComponent<HP>();
     }
 
     // Update is called once per frame
