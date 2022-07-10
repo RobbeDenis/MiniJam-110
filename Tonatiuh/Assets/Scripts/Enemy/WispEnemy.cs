@@ -96,6 +96,6 @@ public class WispEnemy : MonoBehaviour
         GameObject bullet = Instantiate(m_BulletPrefab, m_Socket.position, m_Socket.rotation);
         bullet.transform.forward = transform.forward;
         Invoke("ShootBullet", 1f / m_FireRate);
-        Debug.Log("BULLET");
+        //Debug.Log("BULLET");
     }
 }

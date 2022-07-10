@@ -10,6 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71442f29b35745a4087b9817e59a109a, type: 3}
-  m_Name: Wave
+  m_Name: SpawnData3
   m_EditorClassIdentifier: 
-  time: 0
+  <Enemies>k__BackingField: 03000000030000000300000003000000030000000300000003000000
+  <SpawnerLocation>k__BackingField: {x: 5, y: 0, z: -5}

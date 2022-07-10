@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -14,16 +15,20 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private GameObject m_BullPreFab;
     [SerializeField] private GameObject m_WispPreFab;
 
-    [Header("Settings")]
-    [SerializeField] private int m_BasicEnemyCount;
-    [SerializeField] private int m_KamikazeEnemyCount;
-    [SerializeField] private int m_BullEnemyCount;
-    [SerializeField] private int m_WispEnemyCount;
+    [Space]
+    [SerializeField] private List<Wave> m_Waves;
+
+    private int m_CurrentWaveIndex = 0;
+    //[SerializeField] private int m_KamikazeEnemyCount;
+    //[SerializeField] private int m_BullEnemyCount;
+    //[SerializeField] private int m_WispEnemyCount;
 
     private List<GameObject> m_BasicEnemies = new List<GameObject>();
     private List<GameObject> m_KamikazeEnemies = new List<GameObject>();
     private List<GameObject> m_BullEnemies = new List<GameObject>();
     private List<GameObject> m_WispEnemies = new List<GameObject>();
+
+    private List<GameObject> m_LivingEnemies = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -40,62 +45,146 @@ public class EnemyManager : MonoBehaviour
                 Debug.LogError("NO PLAYER IN SCENE");
         }
 
-        for (int count = 0; count < m_BasicEnemyCount; count++)
-        {
-            GameObject tempEnemy = Instantiate(m_BasicEnemyPrefab, transform);
-            BasicEnemy basicCmpt = tempEnemy.GetComponent<BasicEnemy>();
+        SpawnCurrentWave();
 
-            if (basicCmpt)
-            {
-                basicCmpt.m_PlayerTransform = m_PlayerCameraTransform;
-            }
 
-            m_BasicEnemies.Add(tempEnemy);
-        }
 
-        for (int count = 0; count < m_KamikazeEnemyCount; count++)
-        {
-            GameObject tempEnemy = Instantiate(m_KamikazePreFab, transform);
-            KamikazeEnemy kamikazeCmpt = tempEnemy.GetComponent<KamikazeEnemy>();
+        //foreach (Wave WaveData in m_Waves)
+        //{
+        //    //var spawnwer = WaveData.Spawners;
+        //    foreach (var spawnData in WaveData.Spawners)
+        //    {
+        //        Vector3 spawnPos = spawnData.SpawnerLocation;
 
-            if (kamikazeCmpt)
-            {
-                kamikazeCmpt.m_TorchTransform = m_TorchTransform;
-            }
+        //        foreach (var enemy in spawnData.Enemies)
+        //        {
+        //            switch (enemy)
+        //            {
+        //                case EnemyTypes.Basic:
+        //                    {
+        //                        GameObject tempEnemy = Instantiate(m_BasicEnemyPrefab, spawnPos, transform.rotation);
 
-            m_KamikazeEnemies.Add(tempEnemy);
-        }
+        //                        BasicEnemy basicCmpt = tempEnemy.GetComponent<BasicEnemy>();
+        //                        if (basicCmpt)
+        //                            basicCmpt.m_PlayerTransform = m_PlayerCameraTransform;
 
-        for (int count = 0; count < m_BullEnemyCount; count++)
-        {
-            GameObject tempEnemy = Instantiate(m_BullPreFab, transform);
-            BullEnemy bullCmpt = tempEnemy.GetComponent<BullEnemy>();
+        //                        m_LivingEnemies.Add(tempEnemy);
+        //                    }
+        //                    break;
+        //                case EnemyTypes.Kamikaze:
+        //                    {
+        //                        GameObject tempEnemy = Instantiate(m_KamikazePreFab, spawnPos, transform.rotation);
 
-            if (bullCmpt)
-            {
-                bullCmpt.m_PlayerTransform = m_PlayerCameraTransform;
-            }
+        //                        KamikazeEnemy kamikazeCmpt = tempEnemy.GetComponent<KamikazeEnemy>();
+        //                        if (kamikazeCmpt)
+        //                            kamikazeCmpt.m_TorchTransform = m_TorchTransform;
 
-            m_BullEnemies.Add(tempEnemy);
-        }
+        //                        m_LivingEnemies.Add(tempEnemy);
+        //                    }
+        //                    break;
+        //                case EnemyTypes.Bull:
+        //                    {
+        //                        GameObject tempEnemy = Instantiate(m_BullPreFab, spawnPos, transform.rotation);
 
-        for (int count = 0; count < m_WispEnemyCount; count++)
-        {
-            GameObject tempEnemy = Instantiate(m_WispPreFab, transform);
-            WispEnemy wispCmpt = tempEnemy.GetComponent<WispEnemy>();
+        //                        BullEnemy bullCmpt = tempEnemy.GetComponent<BullEnemy>();
+        //                        if (bullCmpt)
+        //                            bullCmpt.m_PlayerTransform = m_PlayerCameraTransform;
 
-            if (wispCmpt)
-            {
-                wispCmpt.m_PlayerTransform = m_PlayerCameraTransform;
-            }
+        //                        m_LivingEnemies.Add(tempEnemy);
+        //                    }
+        //                    break;
+        //                case EnemyTypes.Wisp:
+        //                    {
+        //                        GameObject tempEnemy = Instantiate(m_WispPreFab, spawnPos, transform.rotation);
 
-            m_WispEnemies.Add(tempEnemy);
-        }
+        //                        WispEnemy wispCmpt = tempEnemy.GetComponent<WispEnemy>();
+        //                        if (wispCmpt)
+        //                            wispCmpt.m_PlayerTransform = m_PlayerCameraTransform;
+
+        //                        m_LivingEnemies.Add(tempEnemy);
+        //                    }
+        //                    break;
+        //            }
+        //        }
+        //    }
+        //}
     }
 
     // Update is called once per frame
     void Update()
     {
+        //remove all NULL's from the list
+        m_LivingEnemies = m_LivingEnemies.Where(item => item != null).ToList();
 
+        if (m_LivingEnemies.Count == 0)
+        {
+            ++m_CurrentWaveIndex;
+
+            if (m_CurrentWaveIndex >= m_Waves.Count)
+            {
+                m_CurrentWaveIndex = 0;
+            }
+
+            SpawnCurrentWave();
+        }
+    }
+
+    void SpawnCurrentWave()
+    {
+        foreach (var spawnData in m_Waves[m_CurrentWaveIndex].Spawners)
+        {
+            Vector3 spawnPos = spawnData.SpawnerLocation;
+
+            foreach (var enemy in spawnData.Enemies)
+            {
+                switch (enemy)
+                {
+                    case EnemyTypes.Basic:
+                        {
+                            GameObject tempEnemy = Instantiate(m_BasicEnemyPrefab, spawnPos, transform.rotation);
+
+                            BasicEnemy basicCmpt = tempEnemy.GetComponent<BasicEnemy>();
+                            if (basicCmpt)
+                                basicCmpt.m_PlayerTransform = m_PlayerCameraTransform;
+
+                            m_LivingEnemies.Add(tempEnemy);
+                        }
+                        break;
+                    case EnemyTypes.Kamikaze:
+                        {
+                            GameObject tempEnemy = Instantiate(m_KamikazePreFab, spawnPos, transform.rotation);
+
+                            KamikazeEnemy kamikazeCmpt = tempEnemy.GetComponent<KamikazeEnemy>();
+                            if (kamikazeCmpt)
+                                kamikazeCmpt.m_TorchTransform = m_TorchTransform;
+
+                            m_LivingEnemies.Add(tempEnemy);
+                        }
+                        break;
+                    case EnemyTypes.Bull:
+                        {
+                            GameObject tempEnemy = Instantiate(m_BullPreFab, spawnPos, transform.rotation);
+
+                            BullEnemy bullCmpt = tempEnemy.GetComponent<BullEnemy>();
+                            if (bullCmpt)
+                                bullCmpt.m_PlayerTransform = m_PlayerCameraTransform;
+
+                            m_LivingEnemies.Add(tempEnemy);
+                        }
+                        break;
+                    case EnemyTypes.Wisp:
+                        {
+                            GameObject tempEnemy = Instantiate(m_WispPreFab, spawnPos, transform.rotation);
+
+                            WispEnemy wispCmpt = tempEnemy.GetComponent<WispEnemy>();
+                            if (wispCmpt)
+                                wispCmpt.m_PlayerTransform = m_PlayerCameraTransform;
+
+                            m_LivingEnemies.Add(tempEnemy);
+                        }
+                        break;
+                }
+            }
+        }
     }
 }
