@@ -17,13 +17,11 @@ public class WispEnemy : MonoBehaviour
     [SerializeField] private float m_StrafeDistance = 4f;
     [SerializeField] private float m_MaxPlayerDistance = 15f;
 
-
     [Header("Bullet/Firing Settings")]
     [SerializeField] private Transform m_Socket;
     [SerializeField] private GameObject m_BulletPrefab;
     [SerializeField] private float m_FireRate = 0.25f;
     [SerializeField] private float m_SpawnFireDelay = 2f;
-
 
     //Old hovering code
     //private Vector3 m_StartPos;

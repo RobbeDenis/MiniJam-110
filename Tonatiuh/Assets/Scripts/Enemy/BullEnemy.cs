@@ -19,7 +19,6 @@ public class BullEnemy : MonoBehaviour
     [SerializeField] float m_ChargeCooldown = 5f;
     [SerializeField] float m_ChargingDuration = 3f;
 
-
     public Transform m_PlayerTransform { get; set; }
     private Rigidbody m_RigidBody;
     private MeleeAttack m_MeleeAttackCollider;
