@@ -8,7 +8,7 @@ public class KamikazeEnemy : MonoBehaviour
     [SerializeField] GameObject m_DeathThingy;
     [SerializeField] float m_RemoveLightAmount = 2f;
 
-    public Transform m_TorchTransform;
+    public Transform m_TorchTransform { get; set; }
     private NavMeshAgent m_NavMeshAgent;
 
 

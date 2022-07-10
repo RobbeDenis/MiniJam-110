@@ -18,7 +18,7 @@ public class BullEnemy : MonoBehaviour
 
 
     //TODO: REMOVVE SERIALIZED FIELD 
-    [SerializeField] public Transform m_PlayerTransform;
+    [SerializeField] public Transform m_PlayerTransform { get; set; }
     private Rigidbody m_RigidBody;
     private MeleeAttack m_MeleeAttackCollider;
 
