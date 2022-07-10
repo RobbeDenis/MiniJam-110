@@ -23,6 +23,10 @@ public class Shield : MonoBehaviour
     [SerializeField] private float m_OrbitAngle = 10f;
     [SerializeField] private float m_MaxOrbitTime = 2f;
 
+    [Header("Shoot settings")]
+    [SerializeField] private GameObject m_Bullet;
+    [SerializeField] private float m_FireRate = 2f;
+
     private ShieldControl m_Controller;
 
     private Rigidbody m_Rigidbody;
@@ -138,7 +142,6 @@ public class Shield : MonoBehaviour
 
             if (Mathf.Abs(Vector3.Distance(transform.position, m_OrbitTarget.position)) <= m_OrbitRange)
             {
-                Debug.Log("StartOrbit");
                 m_Orbitting = true;
                 m_Rigidbody.velocity = new Vector3(0f, 0f, 0f);
                 m_LookingForOrbit = false;
@@ -147,6 +150,8 @@ public class Shield : MonoBehaviour
                     m_Clockwise = false;
                 else
                     m_Clockwise = true;
+
+                Shoot();
             }
         }
         if(m_Orbitting)
@@ -293,11 +298,19 @@ public class Shield : MonoBehaviour
 
     public void GoOrbit(Transform target)
     {
-        Debug.Log("GoOrbit");
         m_LookingForOrbit = true;
         m_OrbitTarget = target;
         m_Active = true;
         m_Recalling = false;
         m_TravelTime = 0f;
+    }
+
+    private void Shoot()
+    {
+        if(m_Orbitting)
+        {
+            Instantiate(m_Bullet, transform.position, transform.rotation);
+            Invoke("Shoot", 1f / m_FireRate);
+        }
     }
 }
