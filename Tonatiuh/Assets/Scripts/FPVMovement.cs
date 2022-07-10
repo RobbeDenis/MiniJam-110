@@ -20,7 +20,18 @@ public class FPVMovement : MonoBehaviour
 
     [Header("Air properties")]
     [SerializeField] private float m_AirDrag = 0.2f;
-    [SerializeField] private float m_AirMultiplier = 0.1f; 
+    [SerializeField] private float m_AirMultiplier = 0.1f;
+
+    [Header("Dash settings")]
+    [SerializeField] private float m_Power = 30f;
+    [SerializeField] private float m_AirPower = 15f;
+    [SerializeField] private float m_RetainVelocity = 0.5f;
+    [SerializeField] private float m_MaxDashCooldwon = 2.5f;
+
+    [Header("Warp effect")]
+    [SerializeField] private float m_WarpAmount = 12f;
+    [SerializeField] private float m_WarpTime = 0.05f;
+    [SerializeField] private float m_UnWarpTime = 0.2f;
 
     private Vector3 m_MoveDirection;
     private Vector3 m_InputDirection;
@@ -28,15 +39,18 @@ public class FPVMovement : MonoBehaviour
     private Rigidbody m_RigidBody;
 
     private bool m_IsGrounded;
+    private bool m_CanDash = true;
     private RaycastHit m_SlopeHit;
 
     private PlayerInputActions m_PlayerControls;
     private InputAction m_IMove;
     private InputAction m_IJump;
+    private InputAction m_IDash;
 
     private void Awake()
     {
         m_PlayerControls = new PlayerInputActions();
+        m_CanDash = true;
     }
 
     private void OnEnable()
@@ -47,12 +61,17 @@ public class FPVMovement : MonoBehaviour
         m_IJump = m_PlayerControls.Player.Jump;
         m_IJump.Enable();
         m_IJump.performed += Jump;
+
+        m_IDash = m_PlayerControls.Player.Dash;
+        m_IDash.Enable();
+        m_IDash.performed += Dash;
     }
 
     private void OnDisable()
     {
         m_IMove.Disable();
         m_IJump.Disable();
+        m_IDash.Disable();
     }
 
     private void Start()
@@ -127,6 +146,46 @@ public class FPVMovement : MonoBehaviour
             return m_SlopeHit.normal != Vector3.up;
         }
         else return false;
+    }
+
+    private void Dash(InputAction.CallbackContext context)
+    {
+        if (!m_CanDash)
+            return;
+
+        float power = m_IsGrounded ? m_Power : m_AirPower;
+
+        m_RigidBody.velocity = m_RigidBody.velocity * m_RetainVelocity;
+
+        if(Mathf.Abs(m_InputDirection.x) < Mathf.Epsilon &&
+            Mathf.Abs(m_InputDirection.y) < Mathf.Epsilon)
+        {
+            //if (m_InputDirection.y > 0)
+            //    CameraManager.Instance.FovWarp(-m_WarpAmount, m_WarpTime, m_UnWarpTime);
+            //else
+            //    CameraManager.Instance.FovWarp(m_WarpAmount, m_WarpTime, m_UnWarpTime);
+
+            CameraManager.Instance.FovWarp(-m_WarpAmount, m_WarpTime, m_UnWarpTime);
+
+            m_RigidBody.AddForce(m_Orientation.forward * power, ForceMode.Impulse);
+        }
+        else
+        {
+            CameraManager.Instance.FovWarp(m_WarpAmount, m_WarpTime, m_UnWarpTime);
+
+            Vector3 inputDirection = new Vector3(m_InputDirection.x, 0f, m_InputDirection.y);
+            Vector3 direction = Quaternion.Euler(0, m_Orientation.eulerAngles.y, 0) * inputDirection;
+            direction.Normalize();
+            m_RigidBody.AddForce(direction * power, ForceMode.Impulse);
+        }
+
+        m_CanDash = false;
+        Invoke("ResetDash", m_MaxDashCooldwon);
+    }
+
+    private void ResetDash()
+    {
+        m_CanDash = true;
     }
 }
 
