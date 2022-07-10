@@ -16,7 +16,9 @@ public class GameManager : MonoBehaviour
         set { m_instance = value; }
     }
 
-    public bool TorchComplete { get; set; }
+    public bool m_TorchComplete { get; set; }
+    public Torch m_CurrentTorch { get; set; }
+
 
     private void Awake()
     {

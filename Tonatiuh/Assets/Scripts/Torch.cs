@@ -20,6 +20,8 @@ public class Torch : MonoBehaviour
     Transform m_lightSphere;
     Light m_Light;
 
+    SphereCollider m_sphereCollider;
+
     ParticleSystem m_fireParticle;
     float m_fireScale = 1.5f;
 
@@ -39,6 +41,11 @@ public class Torch : MonoBehaviour
         m_fireParticle = GetComponentInChildren<ParticleSystem>();
         var emission = m_fireParticle.emission;
         emission.enabled = false;
+
+
+        //GetComponent<SphereCollider>().transform.localScale = m_lightSphere.localScale;
+        m_sphereCollider = GetComponentInChildren<SphereCollider>();
+        m_sphereCollider.radius = 0;
     }
 
     // Update is called once per frame
@@ -48,12 +55,14 @@ public class Torch : MonoBehaviour
             return;
 
         m_lightSphere.localScale = new Vector3(m_CurrentRadius, m_CurrentRadius, m_CurrentRadius);
+        m_sphereCollider.radius = m_CurrentRadius/2;
 
         m_CurrentRadius -= Time.deltaTime * m_sizeDecrease;
         if (m_CurrentRadius <= 0)
             m_CurrentRadius = 0;
 
         m_Light.range = m_CurrentRadius;
+
 
         float scale = m_CurrentRadius / m_endRadius * m_fireScale;
         m_fireParticle.transform.localScale = new Vector3(scale, scale, scale);
@@ -79,6 +88,8 @@ public class Torch : MonoBehaviour
 
         var emission = GetComponentInChildren<ParticleSystem>().emission;
         emission.enabled = true;
+
+        GameManager.Instance.m_CurrentTorch = this;
     }
     public void AddLight(float lightAmount)
     {
@@ -86,7 +97,7 @@ public class Torch : MonoBehaviour
         if (m_CurrentRadius >= m_endRadius)
         {
             m_torchComplete = true;
-            GameManager.Instance.TorchComplete = true;
+            GameManager.Instance.m_TorchComplete = true;
 
 
             m_lightSphere.localScale = new Vector3(0, 0, 0);

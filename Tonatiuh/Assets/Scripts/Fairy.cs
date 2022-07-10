@@ -29,10 +29,10 @@ public class Fairy : MonoBehaviour
         float y = Mathf.PingPong(Time.time * m_speedBop, m_boppingSpeed) * m_boppingHeight - m_boppingHeight;
         transform.position = new Vector3(transform.position.x, y, transform.position.z);
 
-        if(GameManager.Instance.TorchComplete)
+        if(GameManager.Instance.m_TorchComplete)
         {
             m_currentDest++;
-            GameManager.Instance.TorchComplete = false;
+            GameManager.Instance.m_TorchComplete = false;
 
             Light light = GetComponentInChildren<Light>();
             light.enabled = true;
