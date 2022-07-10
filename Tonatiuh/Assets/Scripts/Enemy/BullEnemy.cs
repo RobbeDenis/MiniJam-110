@@ -8,7 +8,8 @@ public class BullEnemy : MonoBehaviour
     [SerializeField] float m_FacingSpeed = 3f;
 
     [SerializeField] float m_ChargeForce = 25f;
-    [SerializeField] float m_PlayerImpactForce = 20f;
+    [SerializeField] float m_PlayerImpactForceH = 20f;
+    [SerializeField] float m_PlayerImpactForceV = 6f;
 
     [SerializeField] float m_DelayBeforeCharge = 1f;
     [SerializeField] float m_HitCooldown = 1f;
@@ -21,6 +22,8 @@ public class BullEnemy : MonoBehaviour
     private Rigidbody m_RigidBody;
     private MeleeAttack m_MeleeAttackCollider;
 
+    private NavMeshAgent m_NavMeshAgent;
+
     private bool m_PlayerInTrigger = false;
     private bool m_ChargeMode = false;
     private bool m_CanCharge = true;
@@ -29,7 +32,7 @@ public class BullEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //m_NavMeshAgent = GetComponent<NavMeshAgent>();
+        m_NavMeshAgent = GetComponent<NavMeshAgent>();
         m_RigidBody = GetComponent<Rigidbody>();
         m_MeleeAttackCollider = GetComponentInChildren<MeleeAttack>();
     }
@@ -44,10 +47,14 @@ public class BullEnemy : MonoBehaviour
         {
             if (m_MeleeAttackCollider.m_PlayerInTrigger)
             {
-                m_MeleeAttackCollider.m_playerRigidBody.AddForce(transform.forward * m_PlayerImpactForce, ForceMode.Impulse);
+                m_MeleeAttackCollider.m_playerRigidBody.AddForce(transform.forward * m_PlayerImpactForceH, ForceMode.Impulse);
+                m_MeleeAttackCollider.m_playerRigidBody.AddForce(Vector3.up * m_PlayerImpactForceV, ForceMode.Impulse);
+
                 m_Stunned = true;
                 m_ChargeMode = false;
                 Invoke("ResetStun", m_HitCooldown);
+
+                m_RigidBody.velocity = new Vector3(0f, 0f, 0f);
             }
 
             return;
@@ -58,6 +65,12 @@ public class BullEnemy : MonoBehaviour
         lookPos.y = 0;
         var rotation = Quaternion.LookRotation(lookPos);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * m_FacingSpeed);
+
+        if (!m_PlayerInTrigger)
+        {
+            //m_NavMeshAgent.
+            m_NavMeshAgent.destination = m_PlayerTransform.position;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -83,6 +96,8 @@ public class BullEnemy : MonoBehaviour
         if (m_PlayerInTrigger && m_CanCharge)
         {
             m_ChargeMode = true;
+            //m_NavMeshAgent.isStopped = true;
+            m_NavMeshAgent.enabled = false;
             m_CanCharge = false;
             // makes melee collider just a collider by disabling its melee attack logic
             m_MeleeAttackCollider.m_Disable = true;
@@ -91,6 +106,8 @@ public class BullEnemy : MonoBehaviour
             Invoke("ResetChargeAttack", m_ChargeCooldown);
             m_RigidBody.AddForce(transform.forward * m_ChargeForce, ForceMode.Impulse);
         }
+
+
     }
 
     void StopCharging()
@@ -103,6 +120,8 @@ public class BullEnemy : MonoBehaviour
     void ResetStun()
     {
         m_Stunned = false;
+        //m_NavMeshAgent.isStopped = false;
+        m_NavMeshAgent.enabled = true;
         m_MeleeAttackCollider.m_Disable = false;
     }
 
