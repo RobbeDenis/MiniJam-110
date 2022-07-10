@@ -8,6 +8,7 @@ public class ShieldControl : MonoBehaviour
 {
     [Header("Aim settings")]
     [SerializeField] private float m_MaxAimDistance = 100f;
+    [SerializeField] private LayerMask m_IgnoreMask;
 
     [Header("Layer masks")]
     [SerializeField] private LayerMask m_PlayerMask;
@@ -101,8 +102,9 @@ public class ShieldControl : MonoBehaviour
             return;
 
         RaycastHit hit;
-        if (Physics.Raycast(m_CameraTransform.position + m_CameraTransform.forward * 2f, m_CameraTransform.forward, out hit, m_MaxAimDistance))
+        if (Physics.Raycast(m_CameraTransform.position + m_CameraTransform.forward * 2f, m_CameraTransform.forward, out hit, m_MaxAimDistance, m_IgnoreMask))
         {
+            Debug.DrawLine(m_CameraTransform.position + m_CameraTransform.forward * 2f, hit.point, Color.red);
             if(hit.collider.gameObject.tag == "Enemy")
             {
                 m_OrbitTarget = hit.transform;
