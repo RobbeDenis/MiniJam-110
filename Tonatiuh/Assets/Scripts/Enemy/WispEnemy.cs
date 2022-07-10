@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class WispEnemy : MonoBehaviour
 {
-    [SerializeField] float m_FacingSpeed = 3f;
+    //[SerializeField] float m_FacingSpeed = 3f;
 
     //Old hovering code
     //[SerializeField] private float m_HoverAmplitude = 0.1f;
@@ -23,7 +23,7 @@ public class WispEnemy : MonoBehaviour
 
     //Old hovering code
     //private Vector3 m_StartPos;
-    public Transform m_PlayerTransform;
+    public Transform m_PlayerTransform { get; set; }
     private NavMeshAgent m_NavMeshAgent;
     private bool m_GetNewPos;
 

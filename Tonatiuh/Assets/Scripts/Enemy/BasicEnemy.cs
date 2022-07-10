@@ -7,7 +7,7 @@ public class BasicEnemy : MonoBehaviour
 {
     [SerializeField] float m_FacingSpeed = 3f;
 
-    public Transform m_PlayerTransform;
+    public Transform m_PlayerTransform { get; set; }
     private NavMeshAgent m_NavMeshAgent;
 
     // Start is called before the first frame update
