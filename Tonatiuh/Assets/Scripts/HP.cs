@@ -38,13 +38,16 @@ public class HP : MonoBehaviour
 
         if (m_HP <= 0f)
         {
-            //code for when something dies
-            
-            //spawning particle thingy after death and making it clean itself up
-            GameObject DeathExplosion = Instantiate(m_DeathExplosion, transform.position, transform.rotation);
-            ParticleSystem explosionParticles = DeathExplosion.GetComponent<ParticleSystem>();
-            float totalDuration = explosionParticles.main.duration + explosionParticles.main.startLifetime.constantMax;
-            Destroy(DeathExplosion, totalDuration);
+            if (m_DeathExplosion != null)
+            {
+                //code for when something dies
+
+                //spawning particle thingy after death and making it clean itself up
+                GameObject DeathExplosion = Instantiate(m_DeathExplosion, transform.position, transform.rotation);
+                ParticleSystem explosionParticles = DeathExplosion.GetComponent<ParticleSystem>();
+                float totalDuration = explosionParticles.main.duration + explosionParticles.main.startLifetime.constantMax;
+                Destroy(DeathExplosion, totalDuration);
+            }   
 
             Destroy(gameObject);
         }

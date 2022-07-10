@@ -7,6 +7,8 @@ public class Shield : MonoBehaviour
     [Header("General settings")]
     [SerializeField] private float m_Speed = 25f;
     [SerializeField] private float m_MaxTravelTime = 1f;
+    [SerializeField] private float m_Damage = 20f;
+    [SerializeField] private float m_Knockback = 5f;
 
     [Header("Pillar hit")]
     [SerializeField] private int m_PierceIncrease = 2;
@@ -202,8 +204,18 @@ public class Shield : MonoBehaviour
 
         if (other.gameObject.tag.Equals("Enemy"))
         {
-            m_EnemyPierceAmount--;
+            HP hp = other.gameObject.GetComponentInParent<HP>();
 
+            if (hp == null)
+                return;
+
+            hp.TakeDamage(m_Damage);
+            Rigidbody r = other.gameObject.GetComponentInParent<Rigidbody>();
+
+            if(r != null)
+                r.AddForce(transform.forward * m_Knockback, ForceMode.Impulse);
+
+            m_EnemyPierceAmount--;
             if (m_EnemyPierceAmount <= 0)
             {
                 if(!m_Orbitting)
