@@ -21,6 +21,7 @@ public class BullEnemy : MonoBehaviour
 
     [Space()]
     [SerializeField] GameObject m_DeathExplosion;
+    [SerializeField] float m_ChargeImpactDamage = 10f;
 
     public Transform m_PlayerTransform { get; set; }
     private Rigidbody m_RigidBody;
@@ -56,6 +57,7 @@ public class BullEnemy : MonoBehaviour
             {
                 m_MeleeAttackCollider.m_playerRigidBody.AddForce(transform.forward * m_PlayerImpactForceH, ForceMode.Impulse);
                 m_MeleeAttackCollider.m_playerRigidBody.AddForce(Vector3.up * m_PlayerImpactForceV, ForceMode.Impulse);
+                m_MeleeAttackCollider.m_HPCmpt.TakeDamage(m_ChargeImpactDamage);
 
                 m_Stunned = true;
                 m_ChargeMode = false;

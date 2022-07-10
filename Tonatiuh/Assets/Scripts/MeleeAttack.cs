@@ -8,10 +8,10 @@ public class MeleeAttack : MonoBehaviour
     [SerializeField] float m_AttackResetDelay = 1.5f;
     [SerializeField] float m_Damage = 5f;
 
-    private HP m_HPCmpt = null;
-    public Rigidbody m_playerRigidBody;
+    public PlayerHP m_HPCmpt { get; private set; } = null;
+    public Rigidbody m_playerRigidBody { get; private set; } = null;
 
-    public bool m_PlayerInTrigger = false;
+    public bool m_PlayerInTrigger { get; private set; } = false;
     public bool m_Disable = false;
     private bool m_CanAttack = true;
 
@@ -39,7 +39,7 @@ public class MeleeAttack : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            m_HPCmpt = other.GetComponent<HP>();
+            m_HPCmpt = other.GetComponent<PlayerHP>();
             m_playerRigidBody = other.GetComponent<Rigidbody>();
             m_PlayerInTrigger = true;
         }
