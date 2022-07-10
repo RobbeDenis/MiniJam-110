@@ -58,6 +58,8 @@ MonoBehaviour:
   m_OrbitSpeed: 0.5
   m_OrbitAngle: 4
   m_MaxOrbitTime: 4
+  m_Bullet: {fileID: 7504125317389811756, guid: 337a69cdba3097c41b5b0393d32da812, type: 3}
+  m_FireRate: 2
 --- !u!54 &7882672613609579047
 Rigidbody:
   m_ObjectHideFlags: 0

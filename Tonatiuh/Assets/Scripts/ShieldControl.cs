@@ -108,7 +108,6 @@ public class ShieldControl : MonoBehaviour
             if(hit.collider.gameObject.tag == "Enemy")
             {
                 m_OrbitTarget = hit.transform;
-                Debug.Log("Enemy seen");
             }
             else
             {
