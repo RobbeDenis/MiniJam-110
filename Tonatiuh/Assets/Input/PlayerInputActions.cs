@@ -71,6 +71,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShieldOrbit"",
+                    ""type"": ""Button"",
+                    ""id"": ""d405bbe9-204b-45dd-b98a-fe5b9318a13e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -269,6 +278,17 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""ShieldRecal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8ce46a16-434c-4bde-bb2a-22143135fd30"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""ShieldOrbit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -861,6 +881,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_ShieldThrow = m_Player.FindAction("ShieldThrow", throwIfNotFound: true);
         m_Player_ShieldRecal = m_Player.FindAction("ShieldRecal", throwIfNotFound: true);
+        m_Player_ShieldOrbit = m_Player.FindAction("ShieldOrbit", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -937,6 +958,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_ShieldThrow;
     private readonly InputAction m_Player_ShieldRecal;
+    private readonly InputAction m_Player_ShieldOrbit;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -946,6 +968,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @ShieldThrow => m_Wrapper.m_Player_ShieldThrow;
         public InputAction @ShieldRecal => m_Wrapper.m_Player_ShieldRecal;
+        public InputAction @ShieldOrbit => m_Wrapper.m_Player_ShieldOrbit;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -970,6 +993,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @ShieldRecal.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShieldRecal;
                 @ShieldRecal.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShieldRecal;
                 @ShieldRecal.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShieldRecal;
+                @ShieldOrbit.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShieldOrbit;
+                @ShieldOrbit.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShieldOrbit;
+                @ShieldOrbit.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShieldOrbit;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -989,6 +1015,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @ShieldRecal.started += instance.OnShieldRecal;
                 @ShieldRecal.performed += instance.OnShieldRecal;
                 @ShieldRecal.canceled += instance.OnShieldRecal;
+                @ShieldOrbit.started += instance.OnShieldOrbit;
+                @ShieldOrbit.performed += instance.OnShieldOrbit;
+                @ShieldOrbit.canceled += instance.OnShieldOrbit;
             }
         }
     }
@@ -1150,6 +1179,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnShieldThrow(InputAction.CallbackContext context);
         void OnShieldRecal(InputAction.CallbackContext context);
+        void OnShieldOrbit(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
