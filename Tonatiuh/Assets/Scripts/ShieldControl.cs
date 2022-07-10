@@ -121,9 +121,12 @@ public class ShieldControl : MonoBehaviour
         {
             m_Shield.GoOrbit(m_OrbitTarget);
             m_CanOrbit = false;
-            m_ShieldModel.localPosition = new Vector3(0f, -m_VerticalOffset, 0f);
-            m_Shield.transform.position = m_ShieldSocket.position;
-            m_Thrown = true;
+            if(!m_Thrown)
+            {
+                m_ShieldModel.localPosition = new Vector3(0f, -m_VerticalOffset, 0f);
+                m_Shield.transform.position = m_ShieldSocket.position;
+                m_Thrown = true;
+            }
         }
     }
 
