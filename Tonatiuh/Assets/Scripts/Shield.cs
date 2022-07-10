@@ -18,16 +18,20 @@ public class Shield : MonoBehaviour
     [SerializeField] private float m_MinReturnSpeed = 2f;
 
     [Header("Orbit settings")]
+    [SerializeField] private float m_OrbitRange = 4f;
 
     private ShieldControl m_Controller;
 
     private Rigidbody m_Rigidbody;
     private Transform m_RecallTarget;
+    private Transform m_OrbitTarget;
     private float m_TravelTime;
     private int m_EnemyPierceAmount = 0;
     private int m_ShieldLevel = 1;
     private bool m_Recalling = false;
     private bool m_Active = false;
+    private bool m_LookingForOrbit = false;
+    private bool m_Orbitting = false;
 
     public void SetController(ShieldControl controller)
     {
@@ -61,11 +65,31 @@ public class Shield : MonoBehaviour
 
             m_Rigidbody.MovePosition(transform.position + direction * distance);
         }
+        else if(m_LookingForOrbit)
+        {
+            if (m_OrbitTarget == null)
+            {
+                Recall(m_Controller.GetSocket());
+                return;
+            }
+
+            Vector3 direction = Vector3.Normalize(m_OrbitTarget.position - transform.position);
+            transform.forward = direction;
+
+            float distance = Vector3.Distance(m_OrbitTarget.position, transform.position);
+
+            distance *= m_ReturnMultiplier;
+
+            if (distance < m_MinReturnSpeed)
+                distance = m_MinReturnSpeed;
+
+            m_Rigidbody.MovePosition(transform.position + direction * distance);
+        }
     }
 
     private void Update()
     {
-        if(m_Active && !m_Recalling)
+        if(m_Active && !m_Recalling && !m_Orbitting)
         {
             if(m_TravelTime >= m_MaxTravelTime)
             {
@@ -76,6 +100,21 @@ public class Shield : MonoBehaviour
                 m_TravelTime += Time.deltaTime;
             }
         }
+        if(m_LookingForOrbit)
+        {
+            if (m_OrbitTarget == null)
+            {
+                Recall(m_Controller.GetSocket());
+                return;
+            }
+
+            if (Mathf.Abs(Vector3.Distance(transform.position, m_OrbitTarget.position)) <= m_OrbitRange)
+            {
+                Debug.Log("StartOrbit");
+                m_Orbitting = true;
+                m_LookingForOrbit = false;
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -83,13 +122,12 @@ public class Shield : MonoBehaviour
         if (!m_Active)
             return;
 
-        if (other.gameObject.tag == "CheckPoint" ||
-            other.gameObject.tag == "Player")
+        if (other.gameObject.tag.Equals("CheckPoint") ||
+            other.gameObject.tag.Equals("Player"))
             return;
 
-        if (other.gameObject.tag == "Enemy")
+        if (other.gameObject.tag.Equals("Enemy"))
         {
-            Debug.Log("EnemyHit");
             m_EnemyPierceAmount--;
 
             if (m_EnemyPierceAmount <= 0)
@@ -97,9 +135,8 @@ public class Shield : MonoBehaviour
                 Recall(m_Controller.GetSocket());
             }
         }
-        else if(!m_Recalling && other.gameObject.tag == "Pillar")
+        else if(!m_Recalling && other.gameObject.tag.Equals("Pillar"))
         {
-            Debug.Log("Pillar");
             m_EnemyPierceAmount += m_PierceIncrease;
 
             Vector3 thisPos = transform.position;
@@ -124,17 +161,15 @@ public class Shield : MonoBehaviour
 
             m_TravelTime = 0f;
         }
-        else if (m_Recalling && other.gameObject.tag == "Catch")
+        else if (m_Recalling && other.gameObject.tag.Equals("Catch"))
         {
-            Debug.Log("Catched");
             Deactivate();
             m_Controller.ShieldArrived();
         }
-        else if(other.gameObject.tag != "Catch")
+        else if(!other.gameObject.tag.Equals("Catch"))
         {
             if(!m_Recalling)
             {
-                Debug.Log(other.gameObject.tag + "Hit");
                 Recall(m_Controller.GetSocket());
             }
         }
@@ -147,8 +182,6 @@ public class Shield : MonoBehaviour
         m_Rigidbody.velocity = new Vector3(0f, 0f, 0f);
         m_Rigidbody.AddForce(direction * m_Speed, ForceMode.Impulse);
         m_Active = true;
-
-        Debug.Log("Throw");
     }
 
     public void Recall(Transform target)
@@ -156,11 +189,13 @@ public class Shield : MonoBehaviour
         m_TravelTime = 0f;
         m_Recalling = true;
         m_RecallTarget = target;
-        Debug.Log("Recall");
+        m_LookingForOrbit = false;
+        m_Orbitting = false;
     }
 
     public void Deactivate()
     {
+        m_LookingForOrbit = false;
         m_Recalling = false;
         m_Active = false;
         float y = -10f;
@@ -173,6 +208,9 @@ public class Shield : MonoBehaviour
 
     public void GoOrbit(Transform target)
     {
-
+        Debug.Log("GoOrbit");
+        m_LookingForOrbit = true;
+        m_OrbitTarget = target;
+        m_Active = true;
     }
 }
