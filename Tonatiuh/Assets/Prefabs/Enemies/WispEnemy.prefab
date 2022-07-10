@@ -40,8 +40,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8105086226684202903}
-  - component: {fileID: 8105086226684202896}
   - component: {fileID: 8105086226684202897}
+  - component: {fileID: 6765901483088076104}
+  - component: {fileID: 8105086226684202896}
   - component: {fileID: 2514580325024594072}
   m_Layer: 0
   m_Name: WispEnemy
@@ -67,6 +68,42 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8105086226684202897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8105086226684202902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea1028d3d9de38846952ff2f5b21c6e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MinRepositionDelay: 3
+  m_MaxRepositionDelay: 6
+  m_StrafeDistance: 4
+  m_MaxPlayerDistance: 15
+  m_Socket: {fileID: 2737827557177940725}
+  m_BulletPrefab: {fileID: 1085646572441888194, guid: 7110ef5f9e3ca2747b8a10f773a9997d, type: 3}
+  m_FireRate: 0.1
+  m_SpawnFireDelay: 2
+  m_DeathExplosion: {fileID: 6606038921963338840, guid: 3925cfa783716e44fb1ae4011f6d89ca, type: 3}
+--- !u!114 &6765901483088076104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8105086226684202902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4866fe626a061941b6cda112cb99897, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InitialHP: 10
+  m_MaxHP: 10
+  m_DeathExplosion: {fileID: 0}
 --- !u!195 &8105086226684202896
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -89,25 +126,6 @@ NavMeshAgent:
   m_BaseOffset: 3
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &8105086226684202897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8105086226684202902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea1028d3d9de38846952ff2f5b21c6e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Socket: {fileID: 2737827557177940725}
-  m_BulletPrefab: {fileID: 1085646572441888194, guid: 7110ef5f9e3ca2747b8a10f773a9997d, type: 3}
-  m_SpawnFireDelay: 2
-  m_FireRate: 0.1
-  m_MinRepositionDelay: 3
-  m_MaxRepositionDelay: 6
-  m_StrafeDistance: 4
 --- !u!135 &2514580325024594072
 SphereCollider:
   m_ObjectHideFlags: 0
