@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d80dbc7482ef794f92e911290d74fd1, type: 3}
+  m_Name: BullWave
+  m_EditorClassIdentifier: 
+  <Spawners>k__BackingField:
+  - {fileID: 11400000, guid: feca5dc7afc20b745a4830c394a8dd22, type: 2}

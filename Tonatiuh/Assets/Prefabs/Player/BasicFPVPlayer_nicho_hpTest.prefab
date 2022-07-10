@@ -101,7 +101,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 132994915955134210}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.0549817, y: -5.553504, z: 0.49954414}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -154,7 +154,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 383951955978908931}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.0549817, y: -5.553504, z: 0.49954414}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -204,6 +204,13 @@ MonoBehaviour:
   m_Orientation: {fileID: 6120047287656254016}
   m_AirDrag: 0.15
   m_AirMultiplier: 0.15
+  m_Power: 30
+  m_AirPower: 15
+  m_RetainVelocity: 0.5
+  m_MaxDashCooldwon: 2.5
+  m_WarpAmount: 12
+  m_WarpTime: 0.05
+  m_UnWarpTime: 0.2
 --- !u!114 &6061072401223389002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,6 +224,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MaxAimDistance: 100
+  m_IgnoreMask:
+    serializedVersion: 2
+    m_Bits: 0
   m_PlayerMask:
     serializedVersion: 2
     m_Bits: 128
@@ -303,6 +313,7 @@ MonoBehaviour:
   m_MaxHP: 100
   m_OutsideDamage: 5
   m_OutsideTimeDamage: 1
+  m_HealthBar: {fileID: 0}
 --- !u!1 &1375938096857063836
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,7 +509,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7871205186806406320}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.3949816, y: 8.833504, z: -6.1095443}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -704,15 +715,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5365940595342854257, guid: 46058341bcafe96408e31f5ba79eec0f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.0549817
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5365940595342854257, guid: 46058341bcafe96408e31f5ba79eec0f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.553504
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5365940595342854257, guid: 46058341bcafe96408e31f5ba79eec0f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.49954414
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5365940595342854257, guid: 46058341bcafe96408e31f5ba79eec0f, type: 3}
       propertyPath: m_LocalRotation.w
