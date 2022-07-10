@@ -160,11 +160,6 @@ public class FPVMovement : MonoBehaviour
         if(Mathf.Abs(m_InputDirection.x) < Mathf.Epsilon &&
             Mathf.Abs(m_InputDirection.y) < Mathf.Epsilon)
         {
-            //if (m_InputDirection.y > 0)
-            //    CameraManager.Instance.FovWarp(-m_WarpAmount, m_WarpTime, m_UnWarpTime);
-            //else
-            //    CameraManager.Instance.FovWarp(m_WarpAmount, m_WarpTime, m_UnWarpTime);
-
             CameraManager.Instance.FovWarp(-m_WarpAmount, m_WarpTime, m_UnWarpTime);
 
             m_RigidBody.AddForce(m_Orientation.forward * power, ForceMode.Impulse);

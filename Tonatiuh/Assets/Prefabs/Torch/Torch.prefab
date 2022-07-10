@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 88443254273040480}
   - component: {fileID: 640277323329535623}
   - component: {fileID: 6911975761715036559}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: SphereCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 2347050289910190121}
   - component: {fileID: 6672096788233796476}
   - component: {fileID: 773666452602771116}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4884,7 +4884,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2892401249368097946}
   - component: {fileID: 6602863316115306981}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Point Light
   m_TagString: Torch
   m_Icon: {fileID: 0}
@@ -4915,7 +4915,7 @@ Light:
   m_GameObject: {fileID: 3341012311670209959}
   m_Enabled: 1
   serializedVersion: 10
-  m_Type: 0
+  m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.5566038, g: 0.12874275, b: 0.04463333, a: 1}
   m_Intensity: 10
@@ -4979,7 +4979,7 @@ GameObject:
   - component: {fileID: 9059504714072198887}
   - component: {fileID: 3237408033105084357}
   - component: {fileID: 3292063228457899636}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: lightRadius
   m_TagString: Torch
   m_Icon: {fileID: 0}
@@ -5063,7 +5063,7 @@ GameObject:
   - component: {fileID: -4886300246028557577}
   - component: {fileID: 6610986802726466624}
   - component: {fileID: 9055724003000585739}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Torch
   m_TagString: Torch
   m_Icon: {fileID: 0}
@@ -5199,6 +5199,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f75151fc7e1f95540aa1e114389be235, type: 3}
       propertyPath: m_Name
       value: torchh
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f75151fc7e1f95540aa1e114389be235, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f75151fc7e1f95540aa1e114389be235, type: 3}
