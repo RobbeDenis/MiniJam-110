@@ -23,9 +23,13 @@ public class ShieldControl : MonoBehaviour
     private float m_VerticalOffset = 5f;
     private bool m_Thrown = false;
 
+    private Transform m_OrbitTarget;
+    private bool m_CanOrbit = true;
+
     private PlayerInputActions m_PlayerControls;
     private InputAction m_IThrowShield;
     private InputAction m_IRecalShield;
+    private InputAction m_IOrbitShield;
 
     private void Awake()
     {
@@ -42,12 +46,22 @@ public class ShieldControl : MonoBehaviour
         m_IRecalShield = m_PlayerControls.Player.ShieldRecal;
         m_IRecalShield.Enable();
         m_IRecalShield.performed += Recall;
+
+        m_IOrbitShield = m_PlayerControls.Player.ShieldOrbit;
+        m_IOrbitShield.Enable();
+        m_IOrbitShield.performed += StartOrbit;
     }
 
     private void OnDisable()
     {
         m_IThrowShield.Disable();
         m_IRecalShield.Disable();
+        m_IOrbitShield.Disable();
+    }
+
+    private void FixedUpdate()
+    {
+        LookForOrbit();
     }
 
     private void Throw(InputAction.CallbackContext context)
@@ -62,7 +76,6 @@ public class ShieldControl : MonoBehaviour
         RaycastHit hit;
         if(Physics.Raycast(m_CameraTransform.position + m_CameraTransform.forward * 2f, m_CameraTransform.forward, out hit, m_MaxAimDistance))
         {
-            //if(hit.)
             direction = Vector3.Normalize(hit.point - m_ShieldSocket.position);
         }
         else
@@ -82,9 +95,45 @@ public class ShieldControl : MonoBehaviour
         m_Shield.Recall(m_ShieldSocket);
     }
 
+    private void LookForOrbit()
+    {
+        if (!m_CanOrbit)
+            return;
+
+        RaycastHit hit;
+        if (Physics.Raycast(m_CameraTransform.position + m_CameraTransform.forward * 2f, m_CameraTransform.forward, out hit, m_MaxAimDistance))
+        {
+            if(hit.collider.gameObject.tag == "Enemy")
+            {
+                m_OrbitTarget = hit.transform;
+                Debug.Log("Enemy seen");
+            }
+            else
+            {
+                m_OrbitTarget = null;
+            }
+        }
+    }
+
+    private void StartOrbit(InputAction.CallbackContext context)
+    {
+        if(m_CanOrbit && m_OrbitTarget)
+        {
+            m_Shield.GoOrbit(m_OrbitTarget);
+            m_CanOrbit = false;
+            if(!m_Thrown)
+            {
+                m_ShieldModel.localPosition = new Vector3(0f, -m_VerticalOffset, 0f);
+                m_Shield.transform.position = m_ShieldSocket.position;
+                m_Thrown = true;
+            }
+        }
+    }
+
     public void ShieldArrived()
     {
         m_Thrown = false;
+        m_CanOrbit = true;
         m_ShieldModel.localPosition = new Vector3(0f, 0f, 0f);
     }
 
