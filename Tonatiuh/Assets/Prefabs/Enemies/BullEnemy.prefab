@@ -156,6 +156,7 @@ MonoBehaviour:
   m_ChargeCooldown: 5
   m_ChargingDuration: 3
   m_DeathExplosion: {fileID: 6606038921963338840, guid: 3925cfa783716e44fb1ae4011f6d89ca, type: 3}
+  m_ChargeImpactDamage: 10
 --- !u!114 &-6375229598709102110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,7 +336,7 @@ GameObject:
   - component: {fileID: 2485315758315762929}
   - component: {fileID: 2485315758315762930}
   m_Layer: 9
-  m_Name: MeleeCollider
+  m_Name: MeleeLogic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -665,8 +666,6 @@ MonoBehaviour:
   m_AttackDelay: 1.5
   m_AttackResetDelay: 1.5
   m_Damage: 5
-  m_playerRigidBody: {fileID: 0}
-  m_PlayerInTrigger: 0
   m_Disable: 0
 --- !u!1 &2485315758406098292
 GameObject:
