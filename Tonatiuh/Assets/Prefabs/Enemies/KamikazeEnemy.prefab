@@ -63,8 +63,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4866fe626a061941b6cda112cb99897, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InitialHP: 100
-  m_MaxHP: 100
+  m_InitialHP: 80
+  m_MaxHP: 80
   m_DeathExplosion: {fileID: 6606038921963338840, guid: 3925cfa783716e44fb1ae4011f6d89ca, type: 3}
 --- !u!195 &5976665861983622728
 NavMeshAgent:
@@ -76,7 +76,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 6
+  m_Speed: 4
   m_Acceleration: 3
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -85,7 +85,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: 0
+  m_BaseOffset: -0.2
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!136 &5976665861983622724

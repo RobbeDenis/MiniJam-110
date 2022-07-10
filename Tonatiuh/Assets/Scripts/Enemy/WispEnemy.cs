@@ -31,7 +31,6 @@ public class WispEnemy : MonoBehaviour
     public Transform m_PlayerTransform { get; set; }
     private NavMeshAgent m_NavMeshAgent;
     private bool m_GetNewPos;
-    private HP m_HP;
 
     private const float m_AIMHEIGHTOFFSET = 1f;
 
@@ -44,12 +43,6 @@ public class WispEnemy : MonoBehaviour
         float delay = Random.Range(m_MinRepositionDelay, m_MaxRepositionDelay);
         Invoke("ChooseNewPos", delay);
         Invoke("ShootBullet", m_SpawnFireDelay);
-
-        //hardcoded offset cuz player transform is at top of it's head
-        m_PlayerTransform.position = new Vector3(m_PlayerTransform.position.x,
-            m_PlayerTransform.position.y - m_AIMHEIGHTOFFSET, m_PlayerTransform.position.z);
-
-        m_HP = GetComponent<HP>();
     }
 
     // Update is called once per frame

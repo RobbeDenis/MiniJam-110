@@ -10,6 +10,7 @@ public class ShieldBullet : MonoBehaviour
     [SerializeField] private float m_EndDelay = 1f;
     [SerializeField] private ParticleSystem m_Sys;
     [SerializeField] private Light m_Light;
+    [SerializeField] private float m_Damage = 20f;
 
     private bool m_Disabled = false;
     private bool m_Hit = false;
@@ -28,6 +29,11 @@ public class ShieldBullet : MonoBehaviour
 
         if (other.gameObject.tag.Equals("Enemy"))
         {
+            HP hp = other.gameObject.GetComponentInParent<HP>();
+            if (hp == null)
+                return;
+
+            hp.TakeDamage(m_Damage);
             m_Hit = true;
         }
 
