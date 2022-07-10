@@ -89,7 +89,7 @@ public class FPVMovement : MonoBehaviour
     private void HandleState()
     {
         m_IsGrounded = Physics.CheckSphere(transform.position, m_GroundDetectionDistance, m_GroundMask);
-        Debug.Log(m_IsGrounded);
+        //Debug.Log(m_IsGrounded);
         
     }
 
