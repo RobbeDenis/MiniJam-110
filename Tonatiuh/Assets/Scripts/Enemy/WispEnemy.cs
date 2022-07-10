@@ -11,14 +11,18 @@ public class WispEnemy : MonoBehaviour
     //[SerializeField] private float m_HoverAmplitude = 0.1f;
     //[SerializeField] private float m_HoverSpeed = 1.1f;
 
-    [SerializeField] private Transform m_Socket;
-    [SerializeField] private GameObject m_BulletPrefab;
-    [SerializeField] private float m_SpawnFireDelay = 2f;
-    [SerializeField] private float m_FireRate = 0.25f;
+    [Header("Movement Settings")]
     [SerializeField] private float m_MinRepositionDelay = 3f;
     [SerializeField] private float m_MaxRepositionDelay = 6f;
-
     [SerializeField] private float m_StrafeDistance = 4f;
+    [SerializeField] private float m_MaxPlayerDistance = 15f;
+
+
+    [Header("Bullet/Firing Settings")]
+    [SerializeField] private Transform m_Socket;
+    [SerializeField] private GameObject m_BulletPrefab;
+    [SerializeField] private float m_FireRate = 0.25f;
+    [SerializeField] private float m_SpawnFireDelay = 2f;
 
 
     //Old hovering code
@@ -39,6 +43,7 @@ public class WispEnemy : MonoBehaviour
         Invoke("ChooseNewPos", delay);
         Invoke("ShootBullet", m_SpawnFireDelay);
 
+        //hardcoded offset cuz player transform is at top of it's head
         m_PlayerTransform.position = new Vector3(m_PlayerTransform.position.x,
             m_PlayerTransform.position.y - m_AIMHEIGHTOFFSET, m_PlayerTransform.position.z);
     }
@@ -46,10 +51,14 @@ public class WispEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (m_GetNewPos)
+        if (Vector3.Distance(transform.position, m_PlayerTransform.position) > m_MaxPlayerDistance)
+        {
+            m_NavMeshAgent.destination = m_PlayerTransform.position;
+        }
+        else if (m_GetNewPos)
         {
             m_GetNewPos = false;
-        
+
             if (Random.value <= 0.5f)
                 m_NavMeshAgent.destination = transform.position + (transform.right * m_StrafeDistance);
             else
@@ -62,7 +71,6 @@ public class WispEnemy : MonoBehaviour
         //Vector3 lookPos = m_PlayerTransform.position - transform.position;
         //Vector3.Normalize(lookPos);
         //lookPos.Normalize();
-
         //lookPos.y -= m_AIMHEIGHTOFFSET;
         //lookPos.y = -5;
         //Quaternion rotation = Quaternion.LookRotation(lookPos);

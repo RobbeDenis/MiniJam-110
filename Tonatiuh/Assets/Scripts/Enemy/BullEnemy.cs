@@ -19,9 +19,7 @@ public class BullEnemy : MonoBehaviour
     [SerializeField] float m_ChargeCooldown = 5f;
     [SerializeField] float m_ChargingDuration = 3f;
 
-
-    //TODO: REMOVVE SERIALIZED FIELD 
-    [SerializeField] public Transform m_PlayerTransform { get; set; }
+    public Transform m_PlayerTransform { get; set; }
     private Rigidbody m_RigidBody;
     private MeleeAttack m_MeleeAttackCollider;
 
@@ -88,7 +86,6 @@ public class BullEnemy : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             m_PlayerInTrigger = true;
-            //Invoke("AttamptChargeAttack", m_DelayBeforeCharge);
         }
     }
 
@@ -106,7 +103,6 @@ public class BullEnemy : MonoBehaviour
         if (m_PlayerInTrigger && m_CanCharge)
         {
             m_ChargeMode = true;
-            //m_NavMeshAgent.isStopped = true;
             m_NavMeshAgent.enabled = false;
             m_CanCharge = false;
 
@@ -131,7 +127,6 @@ public class BullEnemy : MonoBehaviour
     void ResetStun()
     {
         m_Stunned = false;
-        //m_NavMeshAgent.isStopped = false;
         m_NavMeshAgent.enabled = true;
         m_MeleeAttackCollider.m_Disable = false;
     }
@@ -140,5 +135,4 @@ public class BullEnemy : MonoBehaviour
     {
         m_CanCharge = true;
     }
-
 }
