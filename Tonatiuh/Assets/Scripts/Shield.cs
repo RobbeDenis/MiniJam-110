@@ -6,6 +6,7 @@ public class Shield : MonoBehaviour
 {
     [Header("General settings")]
     [SerializeField] private float m_Speed = 25f;
+    [SerializeField] private float m_MaxTravelTime = 1f;
 
     [Header("Pillar hit")]
     [SerializeField] private int m_PierceIncrease = 2;
@@ -18,6 +19,7 @@ public class Shield : MonoBehaviour
 
     private Rigidbody m_Rigidbody;
     private Transform m_RecallTarget;
+    private float m_TravelTime;
     private int m_EnemyPierceAmount = 0;
     private bool m_Recalling = false;
     private bool m_Active = false;
@@ -55,6 +57,22 @@ public class Shield : MonoBehaviour
             m_Rigidbody.MovePosition(transform.position + direction * distance);
         }
     }
+
+    private void Update()
+    {
+        if(m_Active && !m_Recalling)
+        {
+            if(m_TravelTime >= m_MaxTravelTime)
+            {
+                Recall(m_Controller.GetSocket());
+            }
+            else
+            {
+                m_TravelTime += Time.deltaTime;
+            }
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (!m_Active)
@@ -87,13 +105,12 @@ public class Shield : MonoBehaviour
             Vector3 pillarNorm = Vector3.Normalize(otherPos - thisPos);
             Vector3 direction = Vector3.Reflect(transform.forward, pillarNorm);
 
-            //direction.y = 0f;
-            //direction.Normalize();
-
             transform.forward = direction;
 
             m_Rigidbody.velocity = new Vector3(0f, 0f, 0f);
             m_Rigidbody.AddForce(direction * m_Speed, ForceMode.Impulse);
+
+            m_TravelTime = 0f;
         }
         else if (m_Recalling && other.gameObject.tag == "Catch")
         {
@@ -124,6 +141,7 @@ public class Shield : MonoBehaviour
 
     public void Recall(Transform target)
     {
+        m_TravelTime = 0f;
         m_Recalling = true;
         m_RecallTarget = target;
         Debug.Log("Recall");
@@ -136,5 +154,6 @@ public class Shield : MonoBehaviour
         float y = -10f;
         m_Rigidbody.velocity = new Vector3(0f, 0f, 0f);
         transform.position = new Vector3(0f, y, 0f);
+        m_EnemyPierceAmount = 0;
     }
 }
