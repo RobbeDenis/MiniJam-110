@@ -9,7 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71442f29b35745a4087b9817e59a109a, type: 3}
-  m_Name: Wave 1
+  m_Script: {fileID: 11500000, guid: 8d80dbc7482ef794f92e911290d74fd1, type: 3}
+  m_Name: Wave1
   m_EditorClassIdentifier: 
-  time: 0
+  <Spawners>k__BackingField:
+  - {fileID: 11400000, guid: 29aa1d3a29fb2ed409f48653b3b7b19f, type: 2}
+  - {fileID: 11400000, guid: 1725f8a8e84ea914494410fe9b190ea0, type: 2}

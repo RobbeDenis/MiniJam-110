@@ -23,11 +23,15 @@ public class WispEnemy : MonoBehaviour
     [SerializeField] private float m_FireRate = 0.25f;
     [SerializeField] private float m_SpawnFireDelay = 2f;
 
+    [Space]
+    [SerializeField] GameObject m_DeathExplosion;
+
     //Old hovering code
     //private Vector3 m_StartPos;
     public Transform m_PlayerTransform { get; set; }
     private NavMeshAgent m_NavMeshAgent;
     private bool m_GetNewPos;
+    private HP m_HP;
 
     private const float m_AIMHEIGHTOFFSET = 1f;
 
@@ -44,6 +48,8 @@ public class WispEnemy : MonoBehaviour
         //hardcoded offset cuz player transform is at top of it's head
         m_PlayerTransform.position = new Vector3(m_PlayerTransform.position.x,
             m_PlayerTransform.position.y - m_AIMHEIGHTOFFSET, m_PlayerTransform.position.z);
+
+        m_HP = GetComponent<HP>();
     }
 
     // Update is called once per frame
@@ -96,6 +102,6 @@ public class WispEnemy : MonoBehaviour
         GameObject bullet = Instantiate(m_BulletPrefab, m_Socket.position, m_Socket.rotation);
         bullet.transform.forward = transform.forward;
         Invoke("ShootBullet", 1f / m_FireRate);
-        Debug.Log("BULLET");
+        //Debug.Log("BULLET");
     }
 }

@@ -106,9 +106,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9166531255311556685}
-  - component: {fileID: 9166531255311556686}
-  - component: {fileID: 9166531255311556687}
   - component: {fileID: 1018592454262950730}
+  - component: {fileID: 9166531255311556687}
+  - component: {fileID: 9166531255311556686}
   - component: {fileID: 7741932914511018642}
   m_Layer: 0
   m_Name: BasicEnemy
@@ -133,6 +133,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1018592454262950730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9166531255311556684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2869d1bdb3aef424c87342f87b9b0a0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FacingSpeed: 4.5
+--- !u!114 &9166531255311556687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9166531255311556684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4866fe626a061941b6cda112cb99897, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InitialHP: 100
+  m_MaxHP: 100
+  m_DeathExplosion: {fileID: 6606038921963338840, guid: 3925cfa783716e44fb1ae4011f6d89ca, type: 3}
 --- !u!195 &9166531255311556686
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -155,33 +183,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &9166531255311556687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9166531255311556684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4866fe626a061941b6cda112cb99897, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InitialHP: 100
-  m_MaxHP: 100
---- !u!114 &1018592454262950730
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9166531255311556684}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2869d1bdb3aef424c87342f87b9b0a0e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FacingSpeed: 4.5
 --- !u!136 &7741932914511018642
 CapsuleCollider:
   m_ObjectHideFlags: 0
